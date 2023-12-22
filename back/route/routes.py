@@ -24,9 +24,9 @@ def routeTest():
     """
     
     
-    jres = json.dumps({"test":"success!"})
-    jres = Response(jres, content_type="application/json")
-    return jres
+    json_response = json.dumps({"test":"success!"})
+    json_response = Response(json_response, content_type="application/json")
+    return json_response
 
 
 
