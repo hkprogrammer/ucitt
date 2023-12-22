@@ -31,16 +31,16 @@ def hello_world():
     Test function for connectivity
 
     Returns:
-        jres: Response object with res value
+        json_response: Response object with res value
     """
     
     res = {
         "message" : "Hello World"
         }
     
-    jres = json.dumps(res)
-    jres = Response(jres, status=200, content_type="application/json")
-    return jres
+    json_response = json.dumps(res)
+    json_response = Response(json_response, status=200, content_type="application/json")
+    return json_response
 
 
 @tests.route("/test/post", methods=["POST"])
@@ -57,10 +57,10 @@ def postTest():
     print(req)
     res = req
     
-    jres = json.dumps(res)
-    jres = Response(jres,status=200, content_type="application/json")
+    json_response = json.dumps(res)
+    json_response = Response(json_response,status=200, content_type="application/json")
     
-    return jres
+    return json_response
 
 
 
@@ -77,10 +77,10 @@ def getTest():
     print(req)
     res = req
     
-    jres = json.dumps(res)
-    jres = Response(jres,status=200, content_type="application/json")
+    json_response = json.dumps(res)
+    json_response = Response(json_response,status=200, content_type="application/json")
     
-    return jres
+    return json_response
 
 
 
@@ -97,9 +97,9 @@ def badRequest():
         "Bad Request": "BAD"
         }
     
-    jres = json.dumps(res)
-    jres = Response(jres,status=404, content_type="application/json")
+    json_response = json.dumps(res)
+    json_response = Response(json_response,status=404, content_type="application/json")
     
-    return jres
+    return json_response
 
 
