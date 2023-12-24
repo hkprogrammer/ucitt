@@ -3,7 +3,7 @@
 /* Remove Margins */
 * {
     margin: 0;
-    color: #f2f2f2;
+    /* color: #f2f2f2; */ /* Do not do this as it overrides the entire page to white*/
 }
 
 /* Add a black background color to the top navigation */
@@ -13,6 +13,7 @@
     padding: 0;
     display: flex;
     align-items: center;
+    color:#f2f2f2; /* Added by Hitoki*/
 }
 
 /* Style the links inside the navigation bar */
@@ -22,12 +23,25 @@
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+
+    /* Added by Hitoki*/
+    color:#f2f2f2;
+    transition: all 0.3s;
+    margin-right: 10px;
+    border-radius:1px;
+    
+
 }
   
 /* Change the color of links on hover */
 .topnav a:hover {
     background-color: #ddd;
     color: black;
+
+    /* Added by Hitoki*/
+    box-shadow: 3px 3px 3px 0px lightgrey;
+    font-weight: bold;
+    
 }
 
 .links {

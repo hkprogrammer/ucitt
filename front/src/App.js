@@ -5,7 +5,11 @@ import NavBar from './Components/NavBar';
 
 function App() {
   return (
-    <NavBar />
+    <section>
+      <NavBar />
+      <Home />
+    </section>
+    
   );
 }
 
