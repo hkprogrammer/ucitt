@@ -1,49 +1,44 @@
 /* CSS for the homepage */
+.home{
+    --text_width: min(45em, 60%);
+}
 .home-title{
     font-size: 2em;
     text-align: center;
     margin-top: 1em;
     margin-bottom: .3em;
 }
+.home-subtitle{
+    color: var(--subtitle);
+    font-weight: bold;
+    font-size: 1.1em;
+    padding-bottom: 0.5em;
+}
 .home-caption{
     text-align: center;
 }
-.home-items{
+.home-description{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    width: var(--text_width);
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 2em;
     margin-bottom: 2em;
 }
-.home-list{
-    margin-right: 2em;
-    border-style: solid;
-    border-color: black;
-    border-width: 0.2em;
-    border-radius: 0.5em;
-    padding: 1em;
-}
-.home-awards{
-    margin-left: 2em;
-    border-style: solid;
-    border-color: black;
-    border-width: 0.2em;
-    border-radius: 0.5em;
-    padding: 1em;
+.home-about-us{
+    margin-bottom: 2em;
 }
 .home-practice-schedule{
     display: flex;
     flex-direction: column;
-    width: min(40em, 55%);
+    width: var(--text_width);
     margin: auto;
     padding-top: 1em;
     padding-bottom: 1em;
 }
 .home-practice-day{
     display: flex;
-}
-.home-practice-title{
-    font-weight: bold;
-    padding-bottom: 0.5em;
 }
 .home-practice-child1{
     flex: 1;
@@ -55,7 +50,7 @@
     text-align: center;
 }
 .home-horizontal-line{
-    width: min(43em, 60%);
+    width: var(--text_width);
     margin-left: auto;
     margin-right: auto;
     height: 0.2em;
