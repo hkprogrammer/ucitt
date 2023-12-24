@@ -2,12 +2,10 @@
 
 import React from 'react';
 import './Home.css';
-import NavBar from '../Components/NavBar';
 
 function Home() {
     return (
         <div>
-            <NavBar />
             <div className='home'>
                 <div className='home-title'>UCI Table Tennis</div>
                 <div className='home-caption'>Have fun and learn new table tennis skills!</div>
