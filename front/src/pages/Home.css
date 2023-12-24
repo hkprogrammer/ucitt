@@ -61,13 +61,7 @@
     height: 0.2em;
     background-color: #e3bf54;
 }
-.test{
-    display: flex;
-    justify-content: center;
-}
-.testi{
-    flex: 1;
-}
+
 @media screen and (max-width: 700px) {
     .home-items{
         flex-direction: column;
