@@ -1,12 +1,14 @@
 /* CSS for the homepage */
 .home{
     --text_width: min(45em, 60%);
+    --title_size: min(3em, 10vw);
 }
 .home-title{
-    font-size: 2em;
+    font-size: var(--title_size);
     text-align: center;
     margin-top: 1em;
     margin-bottom: .3em;
+    font-weight: bold;
 }
 .home-subtitle{
     color: var(--subtitle);
@@ -72,10 +74,7 @@
         margin-left: auto;
         margin-right: auto;
     }
-    .home-practice-schedule{
-        width: 80%;
-    }
-    .home-horizontal-line{
+    .home-practice-schedule, .home-description, .home-horizontal-line{
         width: 90%;
     }
 }
