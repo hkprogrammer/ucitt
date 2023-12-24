@@ -12,7 +12,7 @@ function ImageScroller() {
     ];
 
     // change proportionOfScreenWidth to change size of image scroller
-    let proportionOfScreenWidth = 0.7;
+    let proportionOfScreenWidth = 0.65;
 
     const [windowSize, setWindowSize] = useState([
         window.innerWidth,
