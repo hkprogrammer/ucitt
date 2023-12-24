@@ -1,16 +1,19 @@
 // NavBar component
 
 import React from "react";
-import "./NavBar.css"
+import "./NavBar.css";
+import logo from "../Assets/logo.png";
 
 function NavBar() {
     return (
-        <div class="topnav">
-            <h1>UCI Table Tennis Club</h1>
+        <div className="topnav">
+            <a className="logo" href="#home">
+                <img src={logo} alt="Table Tennis Petr Logo"/>
+                <h1>UCI Table Tennis Club</h1>
+            </a>
             <div className="links">
-                <a href="#home">Home</a>
-                <a href="#home">Events</a>
-                <a href="#home">Ratings</a>
+                <a href="#events">Events</a>
+                <a href="#ratings">Ratings</a>
             </div>
         </div>
     );
