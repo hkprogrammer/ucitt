@@ -9,11 +9,12 @@
     display: flex;
     align-items: center;
     margin: 0;
+    width: 100%;
+    overflow: hidden;
 }
 
 /* Style the links inside the navigation bar */
 .topnav a {
-    float: left;
     text-align: center;
     padding: 1.4em 1.6em;
     text-decoration: none;
@@ -56,4 +57,11 @@
 
 .topnav h1 {
     margin-left: 1em;
+}
+
+@media screen and (max-width: 700px) {
+    /* Stack elements vertically */
+    .topnav .links{
+        flex-direction: column;
+    }
 }
