@@ -2,9 +2,9 @@
 
 import React from "react";
 import "./NavBar.css";
-import logo from "../Assets/logo.png";
 
 function NavBar() {
+    const logo = "apple-touch-icon.png";
     return (
         <div className="topnav">
             <a className="logo" href="#home">
