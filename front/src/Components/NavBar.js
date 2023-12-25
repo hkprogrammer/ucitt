@@ -12,11 +12,28 @@ function NavBar() {
         if (dropdownMenu.classList.contains('show')) {
             // If it's visible, hide it
             dropdownMenu.classList.remove('show');
-        } else {
+        } 
+        else {
             // If it's hidden, show it
             dropdownMenu.classList.add('show');
         }
     };
+
+    // Resizing back to hiding the dropdown will automatically close the dropdown
+    function handleResize() {
+        const dropdownMenu = document.querySelector('.nav-dropdown-menu');
+        if(dropdownMenu) {
+            const isLargeScreen = window.innerWidth >= 701;
+      
+            if (isLargeScreen && dropdownMenu.classList.contains('show')) {
+                dropdownMenu.classList.remove('show');
+            }
+        }
+    };
+
+    // Add the event listener and initial function call here:
+    window.addEventListener('resize', handleResize);
+    handleResize();
 
     return (
         <div className="nav">
