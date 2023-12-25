@@ -97,4 +97,9 @@
     .nav-dropdown-menu.show {
         max-height: 100%;
     }
+
+    .nav-dropdown-menu a {
+        border-radius: 0;
+        margin-right: 0;
+    }
 }
