@@ -2,7 +2,7 @@
 
 
 /* Add a white background color to the top navigation */
-.topnav {
+.nav-topnav {
     background-color: var(--navBarBackground);
     overflow: hidden;
     padding: 0;
@@ -18,7 +18,6 @@
     text-align: center;
     padding: 1.4em 1.6em;
     text-decoration: none;
-    font-size: min(1em, max(2.9vw, 0.8em));
 
     /* Added by Hitoki*/
     color: #000;;
@@ -34,14 +33,14 @@
 }
 
 /* Make the links a flexbox and make them go towards the right side */
-.topnav .desktop {
+.nav-topnav .nav-desktop {
     display: flex;
     margin-left: auto;
     margin-right: 5%;
 }
 
 /* Style the image */
-.topnav img {
+.nav-topnav img {
     width: 3em;
     height: 3.5em;
     margin: auto;
@@ -49,20 +48,24 @@
 }
 
 /* Styling for logo */
-.topnav .logo{
+.nav-topnav .logo{
     display: flex;
     margin-left: 0.5em;
     padding: 0.5em;
 }
 
 /* Margin for the header */
-.topnav h1 {
+.nav-topnav h1 {
     margin-left: 1em;
+    font-size: min(1em, max(5vw, 1em));
+    display: flex;
+    text-align: center;
+    align-items: center;
 }
 
 /* Make the mobile dropdown hidden for bigger screens */
 @media screen and (min-width: 701px) {
-    .toggle-dropdown, .dropdown-menu{
+    .nav-toggle-dropdown, .nav-dropdown-menu{
         display: none;
     }
 }
@@ -70,11 +73,11 @@
 /* Mobile view dropdown */
 @media screen and (max-width: 700px) {
     /* Stack elements vertically */
-    .topnav .desktop {
+    .nav-topnav .nav-desktop {
         display: none;
     }
 
-    .toggle-dropdown {
+    .nav-toggle-dropdown {
         display: flex;
         border-radius: 0.5em;
         padding: 0.5em;
@@ -82,7 +85,7 @@
         margin-right: 1em;
     }
 
-    .dropdown-menu {
+    .nav-dropdown-menu {
         display: flex;
         flex-direction: column;
         background-color: var(--navBarBackground);
@@ -91,7 +94,7 @@
         transition: transform max-height 10s linear;
     }
 
-    .dropdown-menu.show {
+    .nav-dropdown-menu.show {
         max-height: 100%;
     }
 }
