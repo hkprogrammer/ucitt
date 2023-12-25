@@ -3,17 +3,18 @@
 
 /* Add a white background color to the top navigation */
 .topnav {
-    background-color: #f2f2f2;
+    background-color: var(--navBarBackground);
     overflow: hidden;
     padding: 0;
     display: flex;
     align-items: center;
     margin: 0;
+    width: 100%;
+    overflow: hidden;
 }
 
 /* Style the links inside the navigation bar */
-.topnav a {
-    float: left;
+.nav a {
     text-align: center;
     padding: 1.4em 1.6em;
     text-decoration: none;
@@ -27,32 +28,70 @@
 }
   
 /* Change the color of links on hover */
-.topnav a:hover {
+.nav a:hover {
     color: #697385;
     cursor: pointer;
 }
 
 /* Make the links a flexbox and make them go towards the right side */
-.topnav .links {
+.topnav .desktop {
     display: flex;
     margin-left: auto;
     margin-right: 5%;
 }
 
-/* Style the logo */
+/* Style the image */
 .topnav img {
     width: 3em;
     height: 3.5em;
     margin: auto;
-    padding: 0.5em;
+    padding: 0;
 }
 
 /* Styling for logo */
 .topnav .logo{
     display: flex;
     margin-left: 0.5em;
+    padding: 0.5em;
 }
 
+/* Margin for the header */
 .topnav h1 {
     margin-left: 1em;
+}
+
+/* Make the mobile dropdown hidden for bigger screens */
+@media screen and (min-width: 701px) {
+    .toggle-dropdown, .dropdown-menu{
+        display: none;
+    }
+}
+
+/* Mobile view dropdown */
+@media screen and (max-width: 700px) {
+    /* Stack elements vertically */
+    .topnav .desktop {
+        display: none;
+    }
+
+    .toggle-dropdown {
+        display: flex;
+        border-radius: 0.5em;
+        padding: 0.5em;
+        margin-left: auto;
+        margin-right: 1em;
+    }
+
+    .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--navBarBackground);
+        max-height: 0;
+        overflow: hidden;
+        transition: transform max-height 10s linear;
+    }
+
+    .dropdown-menu.show {
+        max-height: 100%;
+    }
 }
