@@ -18,7 +18,7 @@
     text-align: center;
     padding: 1.4em 1.6em;
     text-decoration: none;
-    font-size: 1em;
+    font-size: min(1em, max(2.9vw, 0.8em));
 
     /* Added by Hitoki*/
     color: #000;;
