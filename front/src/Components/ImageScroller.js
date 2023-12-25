@@ -1,6 +1,8 @@
 // ImageScroller component
 
-import React, { useState, useEffect } from "react";
+//import this for image resizing code
+//import React, { useState, useEffect } from "react";
+import React from "react";
 import "./ImageScroller.css";
 import SimpleImageSlider from "react-simple-image-slider";
 
@@ -11,32 +13,32 @@ function ImageScroller() {
         {url: "/images/divisional.jpg"}
     ];
 
-    // change proportionOfScreenWidth to change size of image scroller
-    let proportionOfScreenWidth = 0.7;
+    const windowSize = window.innerWidth < 1000 ? (0.95 * window.innerWidth) : 1000;
 
-    const [windowSize, setWindowSize] = useState([
-        window.innerWidth,
-        window.innerHeight,
-      ]);
+    // this commented code is for if you want the image to resize with the window, but
+    // I've decided to only calculate the image size one time when the window is first loaded
+    /*
+    const [windowSize, setWindowSize] = useState(
+        window.innerWidth < 700 ? (0.95 * window.innerWidth) : (0.65 * window.innerWidth)
+      );
     
-      useEffect(() => {
-        const handleWindowResize = () => {
-          setWindowSize([window.innerWidth, window.innerHeight]);
-        };
-    
-        window.addEventListener('resize', handleWindowResize);
-    
-        return () => {
-          window.removeEventListener('resize', handleWindowResize);
-        };
-      }, []);
-    
+    useEffect(() => {
+      const handleWindowResize = () => {
+        setWindowSize(window.innerWidth < 700 ? (0.95 * window.innerWidth) : (0.65 * window.innerWidth));
+      };
+  
+      window.addEventListener('resize', handleWindowResize);
+  
+      return () => {
+        window.removeEventListener('resize', handleWindowResize);
+      };
+    }, []);*/
     // from https://www.npmjs.com/package/react-simple-image-slider
     return (
         <div className='image-scroller'>
             <SimpleImageSlider className='image-scroller-image'
-                width={windowSize[0] * proportionOfScreenWidth}
-                height={(windowSize[0] * proportionOfScreenWidth)/16 * 9}
+                width={windowSize}//windowSize[0] * proportionOfScreenWidth}
+                height={windowSize*9/16}//(windowSize[0] * proportionOfScreenWidth)/16 * 9}
                 images={images}
                 showBullets={true}
                 showNavs={true}
