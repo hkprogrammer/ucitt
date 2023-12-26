@@ -44,7 +44,7 @@ function NavBar() {
                 </a>
 
                 {/* Default Navbar for desktop view */}
-                <nav className="nav-desktop">
+                <nav className="nav-desktop nav-links">
                     <a href="#events">Events</a>
                     <a href="#ratings">Ratings</a>
                 </nav>
@@ -52,10 +52,10 @@ function NavBar() {
 
                 {/* Hidden Dropdown that will appear only in mobile view */}
                 <button className="nav-toggle-dropdown" onClick={toggleDropdown}>
-                    <img src={dropdown} alt="Dropdown three lines"/>
+                    <img src={dropdown} alt="Dropdown three lines icon"/>
                 </button>
             </div>
-            <div className="nav-dropdown-menu">
+            <div className="nav-dropdown-menu nav-links">
                 <a href="#events">Events</a>
                 <a href="#ratings">Ratings</a>
             </div>
