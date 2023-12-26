@@ -61,14 +61,16 @@ function NavBar() {
                 <nav className="nav-desktop nav-links">
                     <a href="#events">Events</a>
                     <a href="#ratings">Ratings</a>
-                    {/* Sign In Button */}
                     <button className="nav-signin-button" onClick={openCloseForm}>Sign In</button>
                 </nav>
 
                 {/* Hidden Dropdown that will appear only in mobile view */}
-                <button className="nav-toggle-dropdown" onClick={toggleDropdown}>
-                    <img src={dropdown} alt="Dropdown three lines icon"/>
-                </button>
+                <div className="nav-mobile-buttons">
+                    <button className="nav-signin-button" onClick={openCloseForm}>Sign In</button>
+                    <button className="nav-toggle-dropdown" onClick={toggleDropdown}>
+                        <img src={dropdown} alt="Dropdown three lines icon"/>
+                    </button>
+                </div>
             </div>
 
             {/* Dropdown that will come down upon clicking */}
@@ -78,16 +80,18 @@ function NavBar() {
             </div>
 
             {/* Sign In Pop-up in center of screen */}
-            <div className="nav-form-popup">
-                <form className="nav-form" id="nav-popup-backgroun">
-                    <h1>Login</h1>
-                    <label className="nav-form-label" for="email">Email</label>
-                    <input className="nav-form-input" type="text" placeholder="Enter Email" name="email"></input>
-                    <label className="nav-form-label" for="password">Password</label>
-                    <input className="nav-form-input" type="text" placeholder="Enter Password" name="password"></input>
-                    <button className="nav-form-button" type="submit">Login</button>
-                    <button className="nav-form-button" type="button" onClick={openCloseForm}>Close</button>
-                </form>
+            <div className="nav-form-background">
+                <div className="nav-form-popup">
+                    <form className="nav-form">
+                        <h1>Login</h1>
+                        <label className="nav-form-label" for="email">Email</label>
+                        <input className="nav-form-input" type="text" placeholder="Enter Email" name="email"></input>
+                        <label className="nav-form-label" for="password">Password</label>
+                        <input className="nav-form-input" type="text" placeholder="Enter Password" name="password"></input>
+                        <button className="nav-form-button" type="submit">Login</button>
+                        <button className="nav-form-button" type="button" onClick={openCloseForm}>Close</button>
+                    </form>
+                </div>
             </div>
         </div>
     );

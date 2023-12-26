@@ -65,7 +65,7 @@
 
 /* Make the mobile dropdown hidden for bigger screens */
 @media screen and (min-width: 701px) {
-    .nav-toggle-dropdown, .nav-dropdown-menu{
+    .nav-mobile-buttons, .nav-dropdown-menu{
         display: none;
     }
 }
@@ -77,7 +77,7 @@
         display: none;
     }
 
-    .nav-toggle-dropdown {
+    .nav-mobile-buttons {
         display: flex;
         border-radius: 0.5em;
         padding: 0.5em;
@@ -102,6 +102,10 @@
         border-radius: 0;
         margin-right: 0;
     }
+
+    .nav-mobile-buttons > .nav-signin-button {
+        margin-right: 10%;
+    }
 }
 
 .nav-form-popup {
@@ -111,10 +115,6 @@
 .nav-form-popup.show {
     display: flex;
     position: fixed;
-    top: 25%;
-    left: 32.5%;
-    width: 35%;
-    height: 40%;
     background-color: var(--navBarBackground);
     z-index: 999;
     border-radius: 10%;
@@ -124,8 +124,18 @@
 .nav-form {
     display: flex;
     flex-direction: column;
-    font-size: 1.5em;
+    font-size: 2em;
     overflow: auto;
     align-items: center;
-    width: 100%;
+    padding: 2em;
+}
+
+.nav-form-background {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-form > h1{
+    margin-top: 0;
+    margin-bottom: .3em;
 }
