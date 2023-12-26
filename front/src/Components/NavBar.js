@@ -9,6 +9,7 @@ function NavBar() {
     // Clicking the dropdown menu will either show or hide it depending on current state
     const toggleDropdown = () => {
         const dropdownMenu = document.querySelector('.nav-dropdown-menu');
+        const loginForm = document.querySelector('.nav-form-popup');
         if (dropdownMenu.classList.contains('show')) {
             // If it's visible, hide it
             dropdownMenu.classList.remove('show');
@@ -16,6 +17,10 @@ function NavBar() {
         else {
             // If it's hidden, show it
             dropdownMenu.classList.add('show');
+            // If the login button is showing then close it to show the dropdown
+            if (loginForm.classList.contains('show')) {
+                loginForm.classList.remove('show');
+            } 
         }
     };
 
@@ -34,6 +39,7 @@ function NavBar() {
     // Clicking the Sign-In button and the close button in the form will open it or close it
     function openCloseForm() {
         const loginForm = document.querySelector('.nav-form-popup');
+        const dropdownMenu = document.querySelector('.nav-dropdown-menu');
         if (loginForm.classList.contains('show')) {
             // If it's visible, hide it
             loginForm.classList.remove('show');
@@ -41,6 +47,10 @@ function NavBar() {
         else {
             // If it's hidden, show it
             loginForm.classList.add('show');
+            // If the dropdown is showing then close it to show the login form
+            if (dropdownMenu.classList.contains('show')) {
+                dropdownMenu.classList.remove('show');
+            } 
         }
     }
 
