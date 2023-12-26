@@ -16,30 +16,42 @@
 238 and up 	0 	50
 """
 
+
+import math
+
 POINT_SPREAD = [[238,0,50], [213, 1, 45], [188, 1, 40], [163, 2, 35], [138, 2, 30], [113, 3, 25], [88, 4, 20], [63, 5, 16], [38, 6, 13], [13, 7, 10], [0, 8, 8]]
 
 class Rating:
-    def __init__(self,playerName, playerRating, matches):
+    def __init__(self,playerName, playerInitialRating, matches, listOfAllRatings: list):
         """
 
         Args:
             playerName (_type_): _description_
             playerRating (_type_): _description_
             matches (list[list]): [[playerWon: str, player1Rating: int, player2Rating: int]] assume that player1 is winner
+            listOfAllRatings (list): [p1Rating, p2Rating, ...] list of all player's initial rating from the tournament
         """
         self.playerName = playerName
-        self.playerRating = playerRating
+        self.playerInitialRating = playerInitialRating
+        self.listOfAllRatings = listOfAllRatings
         self.matches = matches
         self.pointSpreads = POINT_SPREAD
         
     def calculate(self):
+        if len(self.matches) == 0:
+            return self.playerInitialRating 
+        
+        rating = self.playerInitialRating
         p1 = self.pass1()
+        
+        
+        return rating
         
     
     
     def pass1(self):
         pointsGained = 0
-        if self.playerRating == 0:
+        if self.playerInitialRating == 0:
             return pointsGained
         
         for i in self.matches:
@@ -51,10 +63,83 @@ class Rating:
             print(self.expectWinLoss(*i))
 
         return pointsGained
+    
+    
+    
+    
+    def pass2(self,pass1Gained):
+        pass2Adjustments = 0
+        
+        if self.playerInitialRating > 0:
+            #player with initial ratings
+            if abs(pass1Gained) < 50:
+                #case 1
+                pass2Adjustments = self.playerInitialRating
+                
 
+            if 50 <= abs(pass1Gained) <= 74:
+                #case 2
+                pass2Adjustments = self.playerInitialRating + pass1Gained
             
+            if len(self.matchesWon()) >= 1 and len(self.matchesLost()) >= 1:
+                #case 3
+                bestWin = self.bestWin()
+                worstLost = self.worstLost()
+                averageBestWorst = math.floor((bestWin+worstLost)/2)
+                pass2Adjustments = ((self.playerInitialRating + pass1Gained) + averageBestWorst)/2
             
+            if len(self.matchesLost()) == 0:
+                #case 4 won all mathches
+                medianRating = math.floor(self.listOfAllRatings[len(self.listOfAllRatings)//2])
+                pass2Adjustments = medianRating
+            return pass2Adjustments
+        
+                
+        #players without ratings
+        
+        if self.allUnratedOpponents(self.matches):
+            pass2Adjustments = 1200
             
+        if len(self.matchesWon()) >= 1 and len(self.matchesLost()) >= 1 and not self.allUnratedOpponents(self.matchesWon()) and not self.allUnratedOpponents(self.matchesLost()):
+            pass2Adjustments =  (self.bestWin() + self.worstLost()) // 2
+            
+        if 
+        
+            
+    def allUnratedOpponents(self, matches):
+        for i in matches:
+            if any([True if j != 0 else False for j in i[1:]]):
+                return True
+        return False
+        
+
+    def matchesWon(self):
+        matches = []
+        for i in self.matches:
+            if i[0] == self.playerName and i[2] != 0:
+                matches.append(i)
+        return matches
+    
+    def matchesLost(self):
+        matches = []
+        for i in self.matches:
+            if i[0] != self.playerName and i[1] != 0:
+                matches.append(i)
+        return matches
+            
+    def bestWin(self):
+        bestWinRating = float("-inf")
+        for i in self.matchesWon():
+            if i[0] == self.playerName:
+                bestWinRating = max(bestWinRating, i[2])
+        return bestWinRating
+    
+    def worstLost(self):
+        worstLostRating = float("inf")
+        for i in self.matchesLost():
+            if i[0] != self.playerName:
+                worstLostRating = min(worstLostRating, i[1])
+        return worstLostRating
         
         
     def expectWinLoss(self, playerWon: str, player1:int, player2:int,) -> ["EXPECTED" or "UPSET", int]:
