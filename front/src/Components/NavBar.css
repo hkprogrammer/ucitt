@@ -123,6 +123,9 @@
     z-index: 999;
     border-radius: 1em;
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.8);
+    max-height: 75%;
+    top: 10%;
+    overflow: auto;
 }
 
 .nav-form {
