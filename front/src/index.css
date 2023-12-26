@@ -1,6 +1,8 @@
 :root{
   --subtitle: #000000;
   --navBarBackground: #f2f2f2;
+  --text_width: min(45em, 60%);
+  --yellow_line: #e3bf54;
 }
 body {
   margin: 0;

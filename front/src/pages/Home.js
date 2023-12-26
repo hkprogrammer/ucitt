@@ -9,7 +9,10 @@ function Home() {
         <div className='home'>
             <div className='home-title'>UCI Table Tennis</div>
             <div className='home-caption'>Have fun and learn new skills!</div>
-            <ImageScroller />
+
+            {/* add images by URl here */}
+            <ImageScroller images={[{url: "/images/team_potluck.jpg"}, {url: "/images/divisional.jpg"}]}/>
+            
             <div className='home-description'>
                 <div className='home-subtitle'>About Us</div>
                 <div className='home-about-us'>Table tennis at UCI welcomes players of all skill levels to come and practice with other members. You can hone your skills, socialize, and make new friends while playing table tennis! If you don’t have your own racket we can lend you one of ours. For those who are serious about improving, our coaches and board members can teach you the tips and tricks required to play at a higher level. Every member has a chance to try to make the competitive roster, which will compete with other colleges in Southern California at NCTTA tournaments.</div>
