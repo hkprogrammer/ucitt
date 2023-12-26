@@ -6,13 +6,14 @@ import React from "react";
 import "./ImageScroller.css";
 import SimpleImageSlider from "react-simple-image-slider";
 
-function ImageScroller() {
-    // add images here
+function ImageScroller(props) {
+    // prop.images is a list of urls as strings
+    /*
     const images = [
         {url: "/images/team_potluck.jpg"},
         {url: "/images/divisional.jpg"}
     ];
-
+    */
     const windowSize = window.innerWidth < 1000 ? (0.95 * window.innerWidth) : 1000;
 
     // this commented code is for if you want the image to resize with the window, but
@@ -39,7 +40,7 @@ function ImageScroller() {
             <SimpleImageSlider className='image-scroller-image'
                 width={windowSize}//windowSize[0] * proportionOfScreenWidth}
                 height={windowSize*9/16}//(windowSize[0] * proportionOfScreenWidth)/16 * 9}
-                images={images}
+                images={props.images}
                 showBullets={true}
                 showNavs={true}
                 autoPlay={true}

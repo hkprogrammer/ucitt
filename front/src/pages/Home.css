@@ -1,6 +1,5 @@
 /* CSS for the homepage */
 .home{
-    --text_width: min(45em, 60%);
     --title_size: min(3em, 10vw);
 }
 .home-title{
@@ -56,7 +55,7 @@
     margin-left: auto;
     margin-right: auto;
     height: 0.2em;
-    background-color: #e3bf54;
+    background-color: var(--yellow_line);
 }
 .home-blank-space{
     height: 4em;

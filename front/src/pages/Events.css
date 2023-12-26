@@ -1,0 +1,21 @@
+.events-header{
+    display:flex;
+    width: calc(var(--text_width) + 5em);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    
+}
+.event-header-item{
+    flex: 1;
+    font-size: 1.3em;
+    text-align: center;
+}
+.event-horizontal-line{
+    width: var(--text_width);
+    margin-left: auto;
+    margin-right: auto;
+    height: 0.2em;
+    background-color: var(--yellow_line);
+}
