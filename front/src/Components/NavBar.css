@@ -10,7 +10,6 @@
     align-items: center;
     margin: 0;
     width: 100%;
-    overflow: hidden;
 }
 
 /* Style the links inside the navigation bar */
@@ -51,33 +50,30 @@
 .nav-topnav .logo{
     display: flex;
     margin-left: 0.5em;
-    padding: 0.5em;
+    margin: 0.5em;
 }
 
-/* Margin for the header */
+/* Margin for the header and font size*/
 .nav-topnav h1 {
     margin-left: 1em;
-    font-size: min(1.5em, max(5vw, 1em));
-    display: flex;
-    text-align: center;
-    align-items: center;
+    font-size: min(1.25em, max(5vw, 1em));
 }
 
 /* Make the mobile dropdown hidden for bigger screens */
 @media screen and (min-width: 701px) {
-    .nav-toggle-dropdown, .nav-dropdown-menu{
+    .nav-mobile-buttons, .nav-dropdown-menu{
         display: none;
     }
 }
 
-/* Mobile view dropdown */
+/* Mobile view */
 @media screen and (max-width: 700px) {
     /* Stack elements vertically */
     .nav-topnav .nav-desktop {
         display: none;
     }
 
-    .nav-toggle-dropdown {
+    .nav-mobile-buttons {
         display: flex;
         border-radius: 0.5em;
         padding: 0.5em;
@@ -102,4 +98,89 @@
         border-radius: 0;
         margin-right: 0;
     }
+
+    .nav-mobile-buttons > .nav-login-button {
+        margin-right: 10%;
+    }
+
+    .nav-topnav h1 {
+        font-size: 1em;
+    }
+}
+
+.nav-login-button, .nav-toggle-dropdown {
+    padding: 1em;
+}
+
+.nav-form-popup {
+    display: none;
+}
+
+.nav-form-popup.show {
+    display: flex;
+    position: fixed;
+    background-color: var(--navBarBackground);
+    z-index: 999;
+    border-radius: 1em;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.8);
+}
+
+.nav-form {
+    display: flex;
+    flex-direction: column;
+    font-size: 2em;
+    align-items: center;
+    padding: 2em;
+}
+
+.nav-form-background {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-form > h1{
+    margin-top: 0;
+    margin-bottom: .3em;
+}
+
+/* Style the input fields */
+.nav-form-input {
+    width: 100%;
+    padding: .5em 1em;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    margin-bottom: 1em;
+    font-size: .5em;
+}
+  
+.nav-form-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+  
+/* Style the buttons */
+.nav-form-button {
+    color: #fff;
+    border: none;
+    padding: .5em 1em;
+    border-radius: 0.5em;
+    font-size: .5em;
+    cursor: pointer;
+    margin: .2em;
+}
+
+.nav-form-button-login {
+    background-color: #007bff;
+}
+
+.nav-form-button-close {
+    background-color: #eb1010;
+}
+  
+.nav-form-button-login:hover {
+    background-color: #0069d9;
+}
+
+.nav-form-button-close:hover {
+    background-color: #c20a0a;
 }
