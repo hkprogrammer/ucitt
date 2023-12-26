@@ -9,6 +9,7 @@ function NavBar() {
     // Clicking the dropdown menu will either show or hide it depending on current state
     const toggleDropdown = () => {
         const dropdownMenu = document.querySelector('.nav-dropdown-menu');
+        const loginForm = document.querySelector('.nav-form-popup');
         if (dropdownMenu.classList.contains('show')) {
             // If it's visible, hide it
             dropdownMenu.classList.remove('show');
@@ -16,6 +17,10 @@ function NavBar() {
         else {
             // If it's hidden, show it
             dropdownMenu.classList.add('show');
+            // If the login button is showing then close it to show the dropdown
+            if (loginForm.classList.contains('show')) {
+                loginForm.classList.remove('show');
+            } 
         }
     };
 
@@ -31,6 +36,25 @@ function NavBar() {
         }
     };
 
+    // Clicking the Sign-In button and the close button in the form will open it or close it
+    function openCloseForm() {
+        const loginForm = document.querySelector('.nav-form-popup');
+        const dropdownMenu = document.querySelector('.nav-dropdown-menu');
+        if (loginForm.classList.contains('show')) {
+            // If it's visible, hide it
+            loginForm.classList.remove('show');
+        } 
+        else {
+            // If it's hidden, show it
+            loginForm.classList.add('show');
+            // If the dropdown is showing then close it to show the login form
+            if (dropdownMenu.classList.contains('show')) {
+                dropdownMenu.classList.remove('show');
+            } 
+        }
+    }
+
+
     // Add the event listener and initial function call here:
     window.addEventListener('resize', handleResize);
     handleResize();
@@ -44,20 +68,38 @@ function NavBar() {
                 </a>
 
                 {/* Default Navbar for desktop view */}
-                <nav className="nav-desktop">
+                <nav className="nav-desktop nav-links">
                     <a href="#events">Events</a>
                     <a href="#ratings">Ratings</a>
+                    <button className="nav-login-button" onClick={openCloseForm}>Login</button>
                 </nav>
 
-
                 {/* Hidden Dropdown that will appear only in mobile view */}
-                <button className="nav-toggle-dropdown" onClick={toggleDropdown}>
-                    <img src={dropdown} alt="Dropdown three lines"/>
-                </button>
+                <div className="nav-mobile-buttons">
+                    <button className="nav-login-button" onClick={openCloseForm}>Login</button>
+                    <button className="nav-toggle-dropdown" onClick={toggleDropdown}>
+                        <img src={dropdown} alt="Dropdown three lines icon"/>
+                    </button>
+                </div>
             </div>
-            <div className="nav-dropdown-menu">
+
+            {/* Dropdown that will come down upon clicking */}
+            <div className="nav-dropdown-menu nav-links">
                 <a href="#events">Events</a>
                 <a href="#ratings">Ratings</a>
+            </div>
+
+            {/* Login pop-up in center of screen */}
+            <div className="nav-form-background">
+                <div className="nav-form-popup">
+                    <form className="nav-form">
+                        <h1>Login</h1>
+                        <input className="nav-form-input" type="text" placeholder="Enter Email" name="email" required />
+                        <input className="nav-form-input" type="text" placeholder="Enter Password" name="password" required />
+                        <button className="nav-form-button nav-form-button-login" type="login">Login</button>
+                        <button className="nav-form-button nav-form-button-close" type="close" onClick={openCloseForm}>Close</button>
+                    </form>
+                </div>
             </div>
         </div>
     );
