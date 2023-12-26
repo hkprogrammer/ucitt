@@ -27,7 +27,7 @@
 }
   
 /* Change the color of links on hover */
-.nav a:hover {
+.nav-links a:hover {
     color: #697385;
     cursor: pointer;
 }
@@ -57,7 +57,7 @@
 /* Margin for the header */
 .nav-topnav h1 {
     margin-left: 1em;
-    font-size: min(1em, max(5vw, 1em));
+    font-size: min(1.5em, max(5vw, 1em));
     display: flex;
     text-align: center;
     align-items: center;
