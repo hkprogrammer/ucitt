@@ -27,6 +27,6 @@
     display: none;
 }
 .event-link{
-    color: black;
+    color: var(--font-color);
     text-decoration: none;
 }
