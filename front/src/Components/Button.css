@@ -1,0 +1,23 @@
+.button-container{
+    width: fit-content;
+    margin: 0.5em;
+}
+.button-link{
+    text-decoration: none;
+    color: var(--font-color);
+    width: fit-content;
+    display: inline-block;
+}
+.button{
+    width: fit-content;
+    padding: 0.5em;
+    border: 0.1em;
+    border-style: solid;
+    border-radius: 0.5em;
+    background-color: var(--nav-bar-background);
+    transition: all var(--transition-time);
+}
+.button:hover{
+    background-color: var(--alternate-background);
+    transition: all var(--transition-time);
+}
