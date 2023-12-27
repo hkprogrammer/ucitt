@@ -5,11 +5,11 @@
 .nav-topnav {
     background-color: var(--nav-bar-background);
     overflow: hidden;
-    padding: 0;
     display: flex;
     align-items: center;
     margin: 0;
-    width: 100%;
+    /*deleted by Robin*/
+    /*width: 100%;*/
     padding: .3em;
 }
 
