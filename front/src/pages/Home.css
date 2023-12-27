@@ -1,9 +1,9 @@
 /* CSS for the homepage */
 .home{
-    --title_size: min(3em, 10vw);
+    --title-size: min(3em, 10vw);
 }
 .home-title{
-    font-size: var(--title_size);
+    font-size: var(--title-size);
     text-align: center;
     margin-top: 1em;
     margin-bottom: .3em;
@@ -21,7 +21,7 @@
 .home-description{
     display: flex;
     flex-direction: column;
-    width: var(--text_width);
+    width: var(--text-width);
     margin-left: auto;
     margin-right: auto;
     margin-top: 2em;
@@ -33,7 +33,7 @@
 .home-practice-schedule{
     display: flex;
     flex-direction: column;
-    width: var(--text_width);
+    width: var(--text-width);
     margin: auto;
     padding-top: 1em;
     padding-bottom: 1em;
@@ -51,11 +51,11 @@
     text-align: center;
 }
 .home-horizontal-line{
-    width: var(--text_width);
+    width: var(--text-width);
     margin-left: auto;
     margin-right: auto;
     height: 0.2em;
-    background-color: var(--yellow_line);
+    background-color: var(--yellow-line);
 }
 .home-blank-space{
     height: 4em;

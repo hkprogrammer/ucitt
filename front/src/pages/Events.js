@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './Events.css';
 import Event from '../Components/Event';
+import Button from '../Components/Button';
 
 function Events() {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 700);
@@ -11,6 +12,12 @@ function Events() {
     window.addEventListener('resize', hideInfo);
     return (
         <div className="events-container">
+            <div className='back-button'>
+                <Button 
+                    text="back"
+                    href="../"
+                />
+            </div>
             <div className="events-header">
                 <div className="events-header-item" id="events-header-item-start">Event</div>
                 <div className={isMobile ?  "events-unnecessary": "events-header-item"}>Time/Date</div>
