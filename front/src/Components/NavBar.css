@@ -10,12 +10,14 @@
     align-items: center;
     margin: 0;
     width: 100%;
+    padding: .3em;
 }
 
 /* Style the links inside the navigation bar */
 .nav a {
     text-align: center;
-    padding: 1.4em 1.6em;
+    /* padding: 1.2em 1.4em; */
+    padding: 1em;
     text-decoration: none;
 
     /* Added by Hitoki*/
@@ -35,7 +37,6 @@
 .nav-topnav .nav-desktop {
     display: flex;
     margin-left: auto;
-    margin-right: 5%;
 }
 
 /* Style the image */
@@ -50,7 +51,7 @@
 .nav-topnav .logo{
     display: flex;
     margin-left: 0.5em;
-    margin: 0.5em;
+    padding: 0;
 }
 
 /* Margin for the header and font size*/
@@ -110,6 +111,8 @@
 
 .nav-login-button, .nav-toggle-dropdown {
     padding: 1em;
+    margin-right: .5em;
+    font-size: 1em;
 }
 
 .nav-form-popup {
