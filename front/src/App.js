@@ -1,10 +1,19 @@
 import './App.css';
-//import Home from './pages/Home';
-import Events from './pages/Events';
 import NavBar from './Components/NavBar';
+// eslint-disable-next-line
+import Home from './pages/Home';
+// eslint-disable-next-line
+import Events from './pages/Events';
+// eslint-disable-next-line
+import EventBracket from './pages/EventBracket';
+
 
 function App() {
 
+  // add events here:
+  // (eventually, we will swap this out with a backend API call)
+
+  // eslint-disable-next-line
   const events = [
     {
         name:"Junior Varsity Tryouts",
@@ -27,7 +36,12 @@ function App() {
   return (
     <section>
       <NavBar />
+
       <Events events={events}/>
+      {
+        //<EventBracket />
+      }
+      
     </section>
 
   );

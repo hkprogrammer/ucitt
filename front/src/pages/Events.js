@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import './Events.css';
 import Event from '../Components/Event';
-import Button from '../Components/Button';
 
 function Events(props) {
     // props.events == array of event json
@@ -15,12 +14,6 @@ function Events(props) {
     window.addEventListener('resize', hideInfo);
     return (
         <div className="events-container">
-            <div className='back-button'>
-                <Button 
-                    text="back"
-                    href="../"
-                />
-            </div>
             <div className="events-header">
                 <div className="events-header-item" id="events-header-item-start">Event</div>
                 <div className={isMobile ?  "events-unnecessary": "events-header-item"}>Time/Date</div>
