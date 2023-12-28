@@ -1,6 +1,6 @@
 .event-container{
     display: flex;
-    width: calc(var(--text_width) + 5em);
+    width: calc(var(--text-width) + 5em);
     margin-left: auto;
     margin-right: auto;
     align-items: center;
@@ -9,12 +9,12 @@
     padding-top: 1em;
     padding-bottom: 1em;
     margin-bottom: 2em;
-    background-color: var(--navBarBackground);
-    transition: all 0.3s;
+    background-color: var(--nav-bar-background);
+    transition: all var(--transition-time);
 }
 .event-container:hover{
-    background-color: white;
-    transition: all 0.3s;
+    background-color: var(--alternate-background);
+    transition: all var(--transition-time);
 }
 .event-item{
     flex: 1;
@@ -27,6 +27,6 @@
     display: none;
 }
 .event-link{
-    color: black;
+    color: var(--font-color);
     text-decoration: none;
 }

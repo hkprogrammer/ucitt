@@ -3,13 +3,13 @@
 
 /* Add a white background color to the top navigation */
 .nav-topnav {
-    background-color: var(--navBarBackground);
+    background-color: var(--nav-bar-background);
     overflow: hidden;
-    padding: 0;
     display: flex;
     align-items: center;
     margin: 0;
-    width: 100%;
+    /*deleted by Robin*/
+    /*width: 100%;*/
     padding: .3em;
 }
 
@@ -85,7 +85,7 @@
     .nav-dropdown-menu {
         display: flex;
         flex-direction: column;
-        background-color: var(--navBarBackground);
+        background-color: var(--nav-bar-background);
         max-height: 0;
         overflow: hidden;
         transition: transform max-height 10s linear;
@@ -113,6 +113,10 @@
     padding: 1em;
     margin-right: 1em;
     font-size: 1em;
+
+    
+    /* added by Robin */
+    cursor: pointer;
 }
 
 .nav-form-popup {
@@ -122,7 +126,7 @@
 .nav-form-popup.show {
     display: flex;
     position: fixed;
-    background-color: var(--navBarBackground);
+    background-color: var(--nav-bar-background);
     z-index: 999;
     border-radius: 1em;
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.8);

@@ -2,7 +2,10 @@ import React, {useState} from 'react';
 import './Events.css';
 import Event from '../Components/Event';
 
-function Events() {
+function Events(props) {
+    // props.events == array of event json
+
+    // checks to see if the screen is narrow enough for mobile version
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 700);
     const hideInfo = () => {
         setIsMobile(window.innerWidth <= 700);
@@ -19,22 +22,15 @@ function Events() {
                 <div className="events-header-item">Register</div>
             </div>
             <div className='events-horizontal-line'></div>
-            <Event 
-                name="Junior Varsity Tryouts"
-                time="11:00 AM"
-                date="12/25/2024"
-                capacity="8/16"
-                location="Activity Annex"
-                registrationCloseDate="12/26/2024 16:48"
-            />
-            <Event 
-                name="Varsity Tryouts"
-                time="11:00 AM"
-                date="12/25/2023"
-                capacity="5/16"
-                location="Activity Annex"
-                registrationCloseDate="12/25/2023 21:00"
-            />
+            <div className='events-list'>
+                {
+                    props.events.map((ttevent) => {
+                        return (
+                            <Event event={ttevent}/>
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

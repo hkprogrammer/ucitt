@@ -1,6 +1,6 @@
 .events-header{
     display:flex;
-    width: calc(var(--text_width) + 5em);
+    width: calc(var(--text-width) + 5em);
     margin-left: auto;
     margin-right: auto;
     margin-top: 2em;
@@ -13,13 +13,16 @@
     text-align: center;
 }
 .events-horizontal-line{
-    width: calc(var(--text_width) + 5em);
+    width: calc(var(--text-width) + 5em);
     margin-left: auto;
     margin-right: auto;
     height: 0.2em;
-    background-color: var(--yellow_line);
+    background-color: var(--yellow-line);
     margin-bottom: 2em;
 }
 .events-unnecessary{
     display: none;
+}
+.back-button{
+    margin: 1em;
 }
