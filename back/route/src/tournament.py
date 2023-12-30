@@ -18,6 +18,19 @@ class Player:
         
     def setPass1Final(self, p1Final):
         self.pass1Final = p1Final
+        
+    def getPass1Gained(self):
+        return self.pass1Gained
+    
+    def getPass1Final(self):
+        return self.pass1Final
+    
+    def setPass2Adjustment(self,p2):
+        self.pass2Adjustment = p2
+        
+    def getPass2Adjustment(self):
+        return self.pass2Adjustment
+    
     
     def getName(self):
         return self.name
@@ -41,7 +54,10 @@ class Player:
         if not isinstance(o, Player):
             return False
         return True if self.getName() == o.getName() and self.getRating() == o.getRating() else False
-            
+    
+    def __hash__(self):
+        return hash(self.__str__())
+        
     
     
 class Match:
@@ -62,7 +78,10 @@ class Match:
         return self.player2
     
     def getWinner(self):
-        return (self.winner)
+        return self.winner
+    
+    def getOpponent(self, player):
+        return self.player1 if player != self.player1 else self.player2
     
     def __str__(self):
         return f"{self.player1} {self.player1Score}-{self.player2Score} {self.player2}" if self.player1 == self.winner else f"{self.player2Score} {self.player2}-{self.player1} {self.player1Score}"
@@ -128,7 +147,7 @@ Robin 3-0 Nathan
     
 def testerTournament():
     hitoki = Player("Hitoki", 1980)
-    robin = Player("Robin", 500)
+    robin = Player("Robin", 800)
     nathan = Player("Nathan", 0)
     joe = Player("Joe", 1700)
     playerList = [hitoki,robin,nathan,joe]

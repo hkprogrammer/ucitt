@@ -21,18 +21,18 @@ class RatingProcessor:
         
     def calculate(self):
         p1 = self.pass1()
-        p2 = self.pass2(p1)
-        p3 = self.pass3(p1,p2)
-        p4 = self.pass4(p1,p2,p3)
-        return p4
+        p2 = self.pass2()
+
+        return 0
     
     def pass1(self):
         
         
-        
-        for player in self.tournament.listOfPlayers:
+        playerGains = {}
+        for player in self.tournament.getListOfPlayers():
             if player.getRating() == 0:
                 continue
+            
             
             
             matches = self.matches[player.getName()]
@@ -45,8 +45,139 @@ class RatingProcessor:
                  
             player.setPass1Gained(pointsGained)
             player.setPass1Final(player.getRating() + pointsGained)
+            playerGains[player] = pointsGained
+        return playerGains
+    
+    def pass2(self):
+
+        unratedPlayers = []
+        
+        for player in self.tournament.getListOfPlayers():
+            if self.isUnrated(player):
+                unratedPlayers.append(player)
+                continue
             
-        return pointsGained
+            
+            
+            #rated players case 1 2 3
+            if abs(player.getPass1Gained()) < 50:
+                #FIXME CHANGE 0
+                player.pass2Adjustment = player.getRating()
+            
+            elif 50 <= abs(player.getPass1Gained()) <= 74:
+                #FIXME
+                player.pass2Adjustment = player.getPass1Final()
+                
+            else:
+                
+                
+                
+                playerWL = self.matchWL(player, self.matches[player.getName()])
+                if len(playerWL["matchesWon"]) >=1 and len(playerWL["matchesLost"]) >=1:
+                    bestWin = self.bestWin(player, playerWL["matchesWon"])
+                    worstLost = self.worstLost(player, playerWL["matchesLost"])
+
+                    p2Adjustment = (player.getPass1Final() + (bestWin+worstLost)//2) //2
+                    player.setPass2Adjustment(p2Adjustment)
+                
+                elif len(playerWL['matchesLost']) == 0 and len(playerWL["matchesWon"]) >= 1:
+                    oppoRating = []
+                    for match in self.matches[player.getName()]:
+                        opponent = match.getOpponent(player)
+                        oppoRating.append(opponent.getRating())
+                    
+                    p2Adjustment = oppoRating[len(oppoRating)//2]
+                    player.setPass2Adjustment(p2Adjustment)
+                    
+                else:
+                    player.setPass2Adjustment(player.getRating())
+                
+                
+            
+        for player in unratedPlayers:
+            
+            listOfOpponents = self.getListOfOpponents(player, self.matches[player.getName()])
+            if self.allUnrated(listOfOpponents):
+                p2Adjustment = 1200
+                player.setPass2Adjustment(p2Adjustment)
+                print(player, player.getRating(), player.getPass1Final(), player.getPass2Adjustment())
+                continue
+            
+            playerWL = self.matchWL(player, self.matches[player.getName()])
+            if len(playerWL["matchesWon"]) >= 1 and len(playerWL["matchesLost"]) >= 1:
+                # assuming at least 1 player has a rating because of the prior if statment
+                
+                pass
+                
+            
+
+            
+            
+            print(player, player.getRating(), player.getPass1Final(), player.getPass2Adjustment())
+            
+    
+    def pass3(self):
+        
+        for player in self.tournament.getListOfPlayers():
+            pass
+            
+            
+        
+        
+    def allUnrated(self, playerList: list[Player]) -> bool:
+        
+        for player in playerList:
+            if player.getRating() != 0:
+                return True
+        return False    
+        
+        
+    
+    def getListOfOpponents(self,player,matches):
+        opponents = []
+        for match in matches:
+            opponents.append(match.getOpponent(player))
+        return opponents
+        
+    def matchWL(self,player,matches):
+        matchesWon = []
+        matchesLost = []
+        for match in matches:
+            if player == match.getWinner():
+                matchesWon.append(match)
+            
+            if player != match.getWinner() and player in match.getPlayers():
+                matchesLost.append(match)
+        return {"matchesWon": matchesWon, "matchesLost": matchesLost}
+    
+    
+    def bestWin(self,player,matches)-> Player:
+        
+        
+        bestWin = Player("PLACEHOLDER", float("-inf"))
+        for match in matches:
+            if match.getWinner() == player:
+                opponent = match.getOpponent(player)
+                opponentRating = opponent.getRating()
+                if opponentRating > bestWin.getRating():
+                    bestWin = opponent
+        
+        return bestWin.getRating()
+    
+    
+
+    def worstLost(self,player,matches) -> Player:
+        worstLost = Player("PLACEHOLDER", float("inf"))
+        for match in matches:
+            if match.getWinner() != player:
+                opponent = match.getOpponent(player)
+                opponentRating = opponent.getRating()
+                if opponentRating < worstLost.getRating():
+                    worstLost = opponent
+        
+        return worstLost.getRating()
+        
+        
     
     def expectWinLost(self,player,match):
         player1 = match.getPlayer1()
@@ -105,14 +236,7 @@ class RatingProcessor:
         return False
     
     
-    def pass2(self,p1):
-        pass
     
-    def pass3(self,p1,p2):
-        pass
-    
-    def pass4(self,p1,p2,p3):
-        pass
     
     # def expectWinLoss(self, match: ) -> ["EXPECTED" or "UPSET", int]:
     #     """
@@ -150,4 +274,6 @@ if __name__ == "__main__":
     
     tournament = testerTournament()
     rp = RatingProcessor(tournament)
+    
     print(rp.pass1())
+    print(rp.pass2())
