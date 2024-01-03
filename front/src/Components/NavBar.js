@@ -74,7 +74,7 @@ function NavBar() {
                     <button className="nav-login-button" onClick={openCloseForm}>Login</button>
                 </nav>
 
-                {/* Hidden Dropdown that will appear only in mobile view */}
+                {/* Hidden mobile buttons that will appear only in mobile view */}
                 <div className="nav-mobile-buttons">
                     <button className="nav-login-button" onClick={openCloseForm}>Login</button>
                     <button className="nav-toggle-dropdown" onClick={toggleDropdown}>
@@ -83,13 +83,13 @@ function NavBar() {
                 </div>
             </div>
 
-            {/* Dropdown that will come down upon clicking */}
+            {/* Mobile dropdown menu that will come down upon clicking the dropdown button*/}
             <div className="nav-dropdown-menu nav-links">
                 <a href="#events">Events</a>
                 <a href="#ratings">Ratings</a>
             </div>
 
-            {/* Login pop-up in center of screen */}
+            {/* Login pop-up in center of screen that is hidden until the login button is clicked*/}
             <div className="nav-form-background">
                 <div className="nav-form-popup">
                     <form className="nav-form">
