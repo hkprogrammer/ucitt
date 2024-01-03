@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Events from './pages/Events';
 // eslint-disable-next-line
 import EventBracket from './pages/EventBracket';
+import SignIn from './pages/SignIn';
 
 
 function App() {
@@ -37,11 +38,12 @@ function App() {
     <section>
       <NavBar />
 
-      <Events events={events}/>
+      {/* <Events events={events}/>
       {
         //<EventBracket />
-      }
-      
+      } */}
+      <SignIn />    
+
     </section>
 
   );

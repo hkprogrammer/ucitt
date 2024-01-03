@@ -1,0 +1,11 @@
+.sign-in-welcome-text {
+    text-align: center;
+    font-size: 3em;
+    color: var(--font-color);
+}
+
+.sign-in-description-text {
+    text-align: center;
+    font-size: 2em;
+    color: var(--font-color);
+}
