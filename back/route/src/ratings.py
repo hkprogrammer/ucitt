@@ -22,7 +22,7 @@ import math
 POINT_SPREAD = [[238,0,50], [213, 1, 45], [188, 1, 40], [163, 2, 35], [138, 2, 30], [113, 3, 25], [88, 4, 20], [63, 5, 16], [38, 6, 13], [13, 7, 10], [0, 8, 8]]
 
 class Rating:
-    def __init__(self,playerName, playerInitialRating, matches, listOfAllRatings: list):
+    def __init__(self,playerName, playerInitialRating, matches, listOfAllRatings: list, pass2FinalPlayers = {}):
         """
 
         Args:
@@ -30,12 +30,16 @@ class Rating:
             playerRating (_type_): _description_
             matches (list[list]): [[playerWon: str, player1Rating: int, player2Rating: int]] assume that player1 is winner
             listOfAllRatings (list): [p1Rating, p2Rating, ...] list of all player's initial rating from the tournament
+            pass2FinalPlayers (dict([Rating, matches])): {playerName: [Rating, matches]} list of all rated opponent's rating object and their matches
         """
+        
+        
         self.playerName = playerName
         self.playerInitialRating = playerInitialRating
         self.listOfAllRatings = listOfAllRatings
         self.matches = matches
         self.pointSpreads = POINT_SPREAD
+        self.pass2FinalPlayers = pass2FinalPlayers
         
     def calculate(self):
         if len(self.matches) == 0:
@@ -43,9 +47,11 @@ class Rating:
         
         rating = self.playerInitialRating
         p1 = self.pass1()
+        p2 = self.pass2(p1)
+        print(p2)
         
         
-        return rating
+        return p2
         
     
     
@@ -77,33 +83,47 @@ class Rating:
                 pass2Adjustments = self.playerInitialRating
                 
 
-            if 50 <= abs(pass1Gained) <= 74:
+            elif 50 <= abs(pass1Gained) <= 74:
                 #case 2
                 pass2Adjustments = self.playerInitialRating + pass1Gained
             
-            if len(self.matchesWon()) >= 1 and len(self.matchesLost()) >= 1:
+            elif len(self.matchesWon(self.matches)) >= 1 and len(self.matchesLost(self.matches)) >= 1:
                 #case 3
-                bestWin = self.bestWin()
-                worstLost = self.worstLost()
+                bestWin = self.bestWin(self.playerName, self.matches)
+                worstLost = self.worstLost(self.playerName, self.matches)
                 averageBestWorst = math.floor((bestWin+worstLost)/2)
                 pass2Adjustments = ((self.playerInitialRating + pass1Gained) + averageBestWorst)/2
             
-            if len(self.matchesLost()) == 0:
+            elif len(self.matchesLost(self.matches)) == 0:
                 #case 4 won all mathches
                 medianRating = math.floor(self.listOfAllRatings[len(self.listOfAllRatings)//2])
                 pass2Adjustments = medianRating
+            else:
+                pass2Adjustments = self.playerInitialRating
+                
+                
             return pass2Adjustments
         
                 
         #players without ratings
         
-        if self.allUnratedOpponents(self.matches):
+        
+            
+        if len(self.matchesWon(self.matches)) >= 1 and len(self.matchesLost(self.matches)) >= 1 and not self.allUnratedOpponents(self.matchesWon(self.matches)) and not self.allUnratedOpponents(self.matchesLost(self.matches)):
+            #case 2, some win some loss with at least one rated player per each category
+            pass2Adjustments =  (self.bestWin(self.playerName, self.matches) + self.worstLost(self.playerName, self.matches)) // 2
+            
+        if len(self.matchesLost(self.matches)) == 0 and not self.allUnratedOpponents(self.matchesWon(self.matches)):
+            
+            highestWin = float("-inf")
+            lowestLost = float("inf")
+            for i in self.pass2FinalPlayers:
+                self.bestWin(self.playerName, self.matches)
+        
+        
+        else:
+            #default case 1
             pass2Adjustments = 1200
-            
-        if len(self.matchesWon()) >= 1 and len(self.matchesLost()) >= 1 and not self.allUnratedOpponents(self.matchesWon()) and not self.allUnratedOpponents(self.matchesLost()):
-            pass2Adjustments =  (self.bestWin() + self.worstLost()) // 2
-            
-        if 
         
             
     def allUnratedOpponents(self, matches):
@@ -113,31 +133,31 @@ class Rating:
         return False
         
 
-    def matchesWon(self):
+    def matchesWon(self,matches):
         matches = []
-        for i in self.matches:
+        for i in matches:
             if i[0] == self.playerName and i[2] != 0:
                 matches.append(i)
         return matches
     
-    def matchesLost(self):
+    def matchesLost(self,matches):
         matches = []
-        for i in self.matches:
+        for i in matches:
             if i[0] != self.playerName and i[1] != 0:
                 matches.append(i)
         return matches
             
-    def bestWin(self):
+    def bestWin(self,playerName):
         bestWinRating = float("-inf")
-        for i in self.matchesWon():
-            if i[0] == self.playerName:
+        for i in self.matchesWon(playerName,matches):
+            if i[0] == playerName:
                 bestWinRating = max(bestWinRating, i[2])
         return bestWinRating
     
-    def worstLost(self):
+    def worstLost(self,playerName):
         worstLostRating = float("inf")
-        for i in self.matchesLost():
-            if i[0] != self.playerName:
+        for i in self.matchesLost(playerName,matches):
+            if i[0] != playerName:
                 worstLostRating = min(worstLostRating, i[1])
         return worstLostRating
         
@@ -184,7 +204,8 @@ if __name__ == "__main__":
     
     playerName = "Hitoki"
     rating = 1890
-    matches = [["Hitoki", 1890, 1930], ["NotHitoki", 1950, 1890], ["Hitoki", 1890, 2400]]
-    rating = Rating(playerName,rating,matches)
-    print(rating.pass1())
+    matches = [["Hitoki", 1890, 1930], ["NotHitoki", 1891, 1890], ["Hitoki", 1890, 1900]]
+    listOfAllRatings = [1890,1930,1950,2400]
+    rating = Rating(playerName,rating,matches, listOfAllRatings)
+    print(rating.calculate())
     pass
