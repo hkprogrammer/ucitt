@@ -60,11 +60,11 @@ class RatingProcessor:
             
             
             #rated players case 1 2 3
-            if abs(player.getPass1Gained()) < 50:
+            if player.getPass1Gained() < 50:
                 #FIXME CHANGE 0
                 player.pass2Adjustment = player.getRating()
             
-            elif 50 <= abs(player.getPass1Gained()) <= 74:
+            elif 50 <= player.getPass1Gained() <= 74:
                 #FIXME
                 player.pass2Adjustment = player.getPass1Final()
                 
@@ -73,6 +73,7 @@ class RatingProcessor:
                 
                 
                 playerWL = self.matchWL(player, self.matches[player.getName()])
+                
                 if len(playerWL["matchesWon"]) >=1 and len(playerWL["matchesLost"]) >=1:
                     bestWin = self.bestWin(player, playerWL["matchesWon"])
                     worstLost = self.worstLost(player, playerWL["matchesLost"])
@@ -91,12 +92,16 @@ class RatingProcessor:
                     
                 else:
                     player.setPass2Adjustment(player.getRating())
+                    
+            print(player, player.getRating(), player.getPass1Final(), player.getPass2Adjustment())
+
                 
                 
             
         for player in unratedPlayers:
             
-            listOfOpponents = self.getListOfOpponents(player, self.matches[player.getName()])
+            listOfOpponents = self.getAllOpponents(player, self.matches[player.getName()])
+            
             if self.allUnrated(listOfOpponents):
                 p2Adjustment = 1200
                 player.setPass2Adjustment(p2Adjustment)
@@ -107,13 +112,122 @@ class RatingProcessor:
             if len(playerWL["matchesWon"]) >= 1 and len(playerWL["matchesLost"]) >= 1:
                 # assuming at least 1 player has a rating because of the prior if statment
                 
-                pass
                 
+                bestWin = self.bestWin(player, playerWL["matchesWon"])
+                worstLost = self.worstLose(player, playerWL["matchesLost"])
             
+                
+                average = (bestWin.getPass2Adjustment() + worstLost.getPass2Adjustment()) // 2
+                player.setPass2Adjustment(average)
+                continue
+            
+            if(len(playerWL["matchesWon"]) >=1 and len(playerWL["matchesLost"]) == 0):
+                #assuming at least 1 player has the rating because of the two prior statements
+                # opponentList = []
+                
+                opponentList = self.getAllOpponents(player, self.matches[player.getName()])
+                
+                
+                
+                intermediate = 0
+                for opponent in opponentList:
+                    opponentWL = self.matchWL(opponent, self.matches[opponent.getName()])
+                    bestWin = self.bestWin(opponent, opponentWL["matchesWon"])
+                    worstLost = self.worstLost(opponent, opponentWL["matchesLost"])
+                    
+                    if not bestWin or not worstLost:
+                        continue
+                    
+                    diff = abs(bestWin - worstLost)
+                    if 1<=diff<=50:
+                        intermediate += 10
+                        
+                    if 51<=diff<=100:
+                        intermediate += 5
+                        
+                    if 101<=diff<=150:
+                        intermediate += 1
+                        
+                currentBestWin = self.bestWin(player, playerWL["matchesWon"])
+                pass2Adjust = currentBestWin + intermediate
+                player.setPass2Adjustment(pass2Adjust)
 
+            if(len(playerWL["matchesWon"]) == 0 and len(playerWL["matchesLost"]) >= 1):
+                
+                
+                opponentList = self.getAllOpponents(player, self.matches[player.getName()])
+                intermediate = 0
+                for opponent in opponentList:
+                    opponentWL = self.matchWL(opponent, self.matches[opponent.getName()])
+                    bestWin = self.bestWin(opponent, opponentWL["matchesWon"])
+                    worstLost = self.worstLost(opponent, opponentWL["matchesLost"])
+                    
+                    if bestWin == float("inf") or worstLost == float("inf"):
+                        #that means this opponent has not lost or not won a single match
+                        continue
+                    
+                
+                    
+                    diff = abs(bestWin - worstLost)
+                    
+                    
+                    if 1<=diff<=50:
+                        intermediate += 10
+                        
+                    if 51<=diff<=100:
+                        intermediate += 5
+                        
+                    if 101<=diff<=150:
+                        intermediate += 1
+                        
+                    
+                
+                
+                currentWorstLost = self.worstLost(player, playerWL["matchesLost"])
+                pass2Adjust = currentWorstLost + intermediate
+                player.setPass2Adjustment(pass2Adjust)
+                
             
             
             print(player, player.getRating(), player.getPass1Final(), player.getPass2Adjustment())
+            
+    
+    def getAllOpponents(self, player, matches):
+        if len(matches) == 0:
+            return None
+        
+        opponents = []
+        for match in matches:
+            opponents.append(match.getOpponent(player))
+        
+        return opponents
+        
+            
+            
+    # def bestWin(self, player, matches):
+        
+    #     if len(matches) == 0:
+    #         return None
+        
+    #     bestWin = matches[0].getOpponent(player)
+    #     for match in matches[1:]:
+    #         if match.getOpponent(player).getPass2Adjustment() > bestWin.getPass2Adjustment():
+    #             bestWin = match.getOpponent(player)
+    #     return bestWin
+    
+    
+    # def worstLose(self, player, matches):
+    #     if len(matches) == 0:
+    #         return None
+        
+    #     worstLost = matches[0].getOpponent(player)
+    #     for match in matches[1:]:
+    #         if match.getOpponent(player).getPass2Adjustment() < worstLost.getPass2Adjustment():
+    #             worstLost = match.getOpponent(player)
+                
+    #     return worstLost
+            
+            
             
     
     def pass3(self):
@@ -128,8 +242,8 @@ class RatingProcessor:
         
         for player in playerList:
             if player.getRating() != 0:
-                return True
-        return False    
+                return False
+        return True
         
         
     
@@ -155,6 +269,7 @@ class RatingProcessor:
         
         
         bestWin = Player("PLACEHOLDER", float("-inf"))
+        
         for match in matches:
             if match.getWinner() == player:
                 opponent = match.getOpponent(player)
@@ -276,4 +391,5 @@ if __name__ == "__main__":
     rp = RatingProcessor(tournament)
     
     print(rp.pass1())
+    print()
     print(rp.pass2())

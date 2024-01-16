@@ -87,7 +87,7 @@ class Match:
         return f"{self.player1} {self.player1Score}-{self.player2Score} {self.player2}" if self.player1 == self.winner else f"{self.player2Score} {self.player2}-{self.player1} {self.player1Score}"
         
     def __repr__(self):
-        return self.__str__()
+        return f"Match({self.player1}, {self.player2}, {self.player1Score}, {self.player2Score}, {self.winner})"
 
 
 
