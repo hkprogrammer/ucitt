@@ -2,8 +2,10 @@
 from collections import defaultdict
 
 
+
+
 class Player:
-    def __init__(self, name, initialRating):
+    def __init__(self, name, initialRating, id = -1):
         self.name = name
         self.rating = initialRating
         self.pass1Gained = 0
@@ -11,6 +13,8 @@ class Player:
         self.pass2Adjustment = self.rating
         self.pass3Adjustment = self.rating
         self.finalRating = self.rating
+        
+        self.id = id
         
         
     def setPass1Gained(self, p1Gain):
@@ -31,6 +35,9 @@ class Player:
     def getPass2Adjustment(self):
         return self.pass2Adjustment
     
+    
+    def getID(self):
+        return self.id
     
     def getName(self):
         return self.name
@@ -53,7 +60,7 @@ class Player:
     def __eq__(self,o):
         if not isinstance(o, Player):
             return False
-        return True if self.getName() == o.getName() and self.getRating() == o.getRating() else False
+        return True if self.getID() == o.getID() and self.getRating() == o.getRating() else False
     
     def __hash__(self):
         return hash(self.__str__())
@@ -84,7 +91,7 @@ class Match:
         return self.player1 if player != self.player1 else self.player2
     
     def __str__(self):
-        return f"{self.player1} {self.player1Score}-{self.player2Score} {self.player2}" if self.player1 == self.winner else f"{self.player2Score} {self.player2}-{self.player1} {self.player1Score}"
+        return f"{self.player1} {self.player1Score}-{self.player2Score} {self.player2}" if self.player1 == self.winner else f"{self.player2} {self.player2Score}-{self.player1Score} {self.player1}"
         
     def __repr__(self):
         return f"Match({self.player1}, {self.player2}, {self.player1Score}, {self.player2Score}, {self.winner})"
@@ -105,14 +112,16 @@ class Tournament:
         #guarnatee player1 player2 to be Player object
         if not isinstance(player1, Player) and not isinstance(player2, Player):
             for i in self.listOfPlayers:
-                if i.getName() == player1:
+                if i.getID() == player1:
                     player1 = i
-                if i.getName() == player2:
+                if i.getID() == player2:
                     player2 = i
         
         
         match = Match(player1, player2, score1, score2, winner)
         self.matches.append(match)
+        
+        print("Added match: " + str(match))
         
         
     def getListOfPlayers(self):
@@ -123,13 +132,39 @@ class Tournament:
         
         
         for match in self.matches:
-            if match not in matches[match.getPlayer1().getName()]:
-                matches[match.getPlayer1().getName()].append(match)
+            if match not in matches[match.getPlayer1().getID()]:
+                matches[match.getPlayer1().getID()].append(match)
             
-            if match not in matches[match.getPlayer2().getName()]:
-                matches[match.getPlayer2().getName()].append(match)
+            if match not in matches[match.getPlayer2().getID()]:
+                matches[match.getPlayer2().getID()].append(match)
     
         return matches
+    
+    
+    def importFile(self, file):
+        
+        next(file)
+        for line in file:
+            l = line.strip().split(",")
+            
+            player1, player2 = None, None
+            winner = None
+            for player in self.getListOfPlayers():
+                if player.getID() == l[0]:
+                    player1 = player
+                
+                if player.getID() == l[1]:
+                    player2 = player            
+
+                if player.getID() == l[4]:
+                    winner = player
+
+
+            
+            self.reportScore(player1, player2, int(l[2]), int(l[3]), winner)
+        
+        
+        
 
     
     
@@ -167,7 +202,17 @@ def testerTournament():
         
         
     return tournament
+ 
+
+
+
+
+
+    
     
 if __name__ == "__main__":
-    testerTournament()
+    # testerTournament()
+    
+    # sampleImportTournament()
+    pass
     
