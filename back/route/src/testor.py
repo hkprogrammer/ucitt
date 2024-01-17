@@ -5,6 +5,7 @@ from ratingProcessor import *
 def sampleImportTournament():
     
     t = open("sample1.csv")
+    t2 = open("sample2.csv")
     players = open("samplePlayers.csv")
     
     
@@ -19,21 +20,25 @@ def sampleImportTournament():
     
     
     tournament = Tournament("UCITT December Open", "", "", listOfPlayers)
+    tournament2 = Tournament("UCITT 2024 Winter Tryouts", "", "", listOfPlayers)
     tournament.importFile(t)
+    tournament2.importFile(t2)
+    
     
     
     t.close()
     players.close()
     
     rp = RatingProcessor(tournament)
-    print(rp.pass1())
-    print()
-    print(rp.pass2())    
+    rp.calculate()
+    
+    rp2 = RatingProcessor(tournament2)
+    rp2.calculate()
     
     
     
     for player in listOfPlayers:
-        print(f"Player: {player.getName()} | oldRating: {player.getRating()} | newRating: {player.getPass2Adjustment()} | Change: {player.getPass2Adjustment() - player.getRating()}")    
+        print(f"Player: {player.getName()} | oldRating: {player.getOriginalRating()} | newRating: {player.getPass2Adjustment()} | Change: {player.getPass2Adjustment() - player.getOriginalRating()}")    
         
     pass
 
