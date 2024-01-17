@@ -8,10 +8,14 @@ class Player:
     def __init__(self, name, initialRating, id = -1):
         self.name = name
         self.rating = initialRating
+        self.originalRating = initialRating
         self.pass1Gained = 0
         self.pass1Final = self.rating
         self.pass2Adjustment = self.rating
-        self.pass3Adjustment = self.rating
+        self.pass3Part1Adjustment = self.rating
+        self.pass3Part2Adjustment = self.rating
+        self.pass3Gained = 0
+        
         self.finalRating = self.rating
         
         self.id = id
@@ -35,6 +39,26 @@ class Player:
     def getPass2Adjustment(self):
         return self.pass2Adjustment
     
+    def setPass3Part1Adjustment(self,p3p1):
+        self.pass3Part1Adjustmnet = p3p1
+        
+    def getPass3Part1Adjustment(self):
+        return self.pass3Part1Adjustment
+    
+    def setPass3Part2Adjustment(self,p3p2):
+        self.pass3Part2Adjustmnet = p3p2
+        
+    def getPass3Part2Adjustment(self):
+        return self.pass3Part2Adjustment
+    
+    def setPass3Gained(self,p3g):
+        self.pass3Gained = p3g
+    
+    def getPass3(self):
+        return self.pass3Gained
+    
+    def getOriginalRating(self):
+        return self.originalRating
     
     def getID(self):
         return self.id

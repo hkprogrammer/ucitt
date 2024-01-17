@@ -15,13 +15,28 @@ class RatingProcessor:
         self.POINT_SPREAD = RatingProcessor.POINT_SPREAD
         self.matches = self.tournament.getMatches()
         
+        # self.mathematicalMedian = 
+        
+        #mathematical median of initial ratings:
+        listOfRatings = []
+        for player in self.tournament.getListOfPlayers():
+            listOfRatings.append(player.getRating())
+        listOfRatings = sorted(listOfRatings)
+        
+        self.mathematicalMedian = listOfRatings[len(listOfRatings)//2]
+        
+        
         # self.initialRatings = {player.getID(): player.getRating() for player in self.tournament.getListOfPlayers()}
         # print(self.initialRatings)
         
         
     def calculate(self):
-        p1 = self.pass1()
-        p2 = self.pass2()
+        self.pass1()
+        self.pass2()
+        self.pass3()
+        self.pass4()
+        print("Finished calculating!")
+        
 
         return 0
     
@@ -33,16 +48,8 @@ class RatingProcessor:
             if player.getRating() == 0:
                 continue
             
-            
-            
-            matches = self.matches[player.getID()]
-            pointsGained = 0
-            print(player)
-            for match in matches:
-                expectations = self.expectWinLost(player,match)
-                print(expectations)
-                pointsGained += expectations[1]
-                 
+            pointsGained = self.pointExchangeTable(player, self.matches[player.getID()])
+    
             player.setPass1Gained(pointsGained)
             player.setPass1Final(player.getRating() + pointsGained)
             playerGains[player] = pointsGained
@@ -101,6 +108,9 @@ class RatingProcessor:
         for player in unratedPlayers:
             
             listOfOpponents = self.getAllOpponents(player, self.matches[player.getID()])
+            
+            if not listOfOpponents:
+                continue
             
             print(listOfOpponents, player)
             if self.allUnrated(listOfOpponents):
@@ -191,7 +201,95 @@ class RatingProcessor:
             
             
             print(player, player.getRating(), player.getPass1Final(), player.getPass2Adjustment())
+          
+    def pass3(self):
+        
+        
+        
+        for player in self.tournament.getListOfPlayers():
             
+            
+            playerWL = self.matchWL(player, self.matches[player.getID()])
+            if player.getRating() == 0:
+                if playerWL["matchesWon"] == 0 or playerWL["matchesLost"] == 0:
+                    player.setPass3Part2Adjustment(player.getPass2Adjustment())
+                    continue
+            
+            
+            matches = self.matches[player.getID()]
+            pointsGained = self.pointExchangeTable(player, matches, usingPass2=True)
+            player.setPass3Part1Adjustment(pointsGained)
+            player.setPass3Gained(pointsGained)
+            
+            if pointsGained < 50:
+                player.setPass3Part2Adjustment(player.getPass2Adjustment())
+                # continue
+            
+            if 50 <= pointsGained <= 74:
+                player.setPass3Part2Adjustment(player.getPass2Adjustment() + pointsGained)
+                
+                
+            if pointsGained >=75:
+                
+                
+                if len(playerWL["matchesWon"]) >= 1 and len(playerWL["matchesLost"]) >= 1:
+                    bestWin = self.bestWin(player, playerWL["matchesWon"], usingPass2=True)
+                    worstLost = self.worstLost(player, playerWL["matchesLost"], usingPass2=True)
+                    
+                    bestWorstAvg = (bestWin + worstLost) //2
+                    avg = (bestWorstAvg + player.getPass2Adjustment() + pointsGained)//2
+                    player.setPass3Part2Adjustment(avg)
+                    
+
+                #mathematical median of all opponents rating
+                
+                if len(playerWL["matchesWon"]) >= 1 and len(playerWL["matchesLost"]) == 0:
+                    player.setPass3Part2Adjustment(self.mathematicalMedian)
+                    
+            
+            player.setPass3Part2Adjustment(max(player.getRating(), player.getPass3Part2Adjustment()))
+            
+            
+            self.special = []
+            #special cases:
+            if player in self.special:
+                #DO SOMETHING
+                pass
+            
+            
+                
+    def pass4(self):
+        
+        
+        for player in self.tournament.getListOfPlayers():
+            matches = self.matches[player.getID()]
+            player.setNewRating(player.getPass3Part2Adjustment())
+            pointsGained = self.pointExchangeTable(player, matches)
+            player.setNewRating(player.getRating() + pointsGained)
+            
+        
+            
+        
+        
+        
+    
+    
+    
+    def pointExchangeTable(self,player,matches, usingPass2=False) -> int:
+
+        pointsGained = 0
+        # print(player)
+        for match in matches:
+            expectations = self.expectWinLost(player,match, usingPass2=usingPass2)
+            # print(expectations)
+            pointsGained += expectations[1]
+                
+       
+        return pointsGained
+        
+          
+          
+      
     
     def getAllOpponents(self, player, matches):
         if len(matches) == 0:
@@ -207,10 +305,7 @@ class RatingProcessor:
             
             
     
-    def pass3(self):
-        
-        for player in self.tournament.getListOfPlayers():
-            pass
+    
             
             
         
@@ -242,50 +337,59 @@ class RatingProcessor:
         return {"matchesWon": matchesWon, "matchesLost": matchesLost}
     
     
-    def bestWin(self,player,matches):
+    def bestWin(self,player,matches,usingPass2=False):
         
         
-        return self.bestWinPlayer(player, matches).getRating()
+        return self.bestWinPlayer(player, matches, usingPass2).getRating()
     
-    def bestWinPlayer(self,player,matches) ->Player:
+    def bestWinPlayer(self,player,matches, usingPass2=False) ->Player:
         bestWin = Player("PLACEHOLDER", float("-inf"))
         
         for match in matches:
             if match.getWinner() == player:
                 opponent = match.getOpponent(player)
-                opponentRating = opponent.getRating()
-                if opponentRating > bestWin.getRating():
+                opponentRating = opponent.getRating() if not usingPass2 else opponent.getPass2Adjustment()
+                if opponentRating > bestWin.getRating() if not usingPass2 else opponent.getPass2Adjustment():
                     bestWin = opponent
         
         return bestWin
     
     
-    def worstLostPlayer(self, player, matches) -> Player:
+    def worstLostPlayer(self, player, matches, usingPass2=False) -> Player:
         worstLost = Player("PLACEHOLDER", float("inf"))
         for match in matches:
             if match.getWinner() != player:
                 opponent = match.getOpponent(player)
-                opponentRating = opponent.getRating()
-                if opponentRating < worstLost.getRating():
+                opponentRating = opponent.getRating() if not usingPass2 else opponent.getPass2Adjustment()
+                if opponentRating < worstLost.getRating() if not usingPass2 else opponent.getPass2Adjustment():
                     worstLost = opponent
         
         return worstLost
 
-    def worstLost(self,player,matches) :
-        return self.worstLostPlayer(player, matches).getRating()
+    def worstLost(self,player,matches,usingPass2=False) :
+        return self.worstLostPlayer(player, matches, usingPass2).getRating()
         
         
     
-    def expectWinLost(self,player,match):
+    def expectWinLost(self,player,match, usingPass2=False):
         player1 = match.getPlayer1()
         player2 = match.getPlayer2()
         difference = ["UNRATED", 0]
         
-        if self.isUnrated(player1) or self.isUnrated(player2):
+        
+        
+        if not usingPass2 and self.isUnrated(player1) or self.isUnrated(player2):
             #skip if unrated
             return difference
             
-        pointDifference = abs(player1.getRating() - player2.getRating())
+        
+        #compensate for pass3
+        
+        
+        if usingPass2:
+            pointDifference = abs(player1.getPass2Adjustment() - player2.getPass2Adjustment())
+        else: 
+            pointDifference = abs(player1.getRating() - player2.getRating())
         
         
         
