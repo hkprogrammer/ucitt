@@ -40,13 +40,13 @@ class Player:
         return self.pass2Adjustment
     
     def setPass3Part1Adjustment(self,p3p1):
-        self.pass3Part1Adjustmnet = p3p1
+        self.pass3Part1Adjustment = p3p1
         
     def getPass3Part1Adjustment(self):
         return self.pass3Part1Adjustment
     
     def setPass3Part2Adjustment(self,p3p2):
-        self.pass3Part2Adjustmnet = p3p2
+        self.pass3Part2Adjustment = p3p2
         
     def getPass3Part2Adjustment(self):
         return self.pass3Part2Adjustment

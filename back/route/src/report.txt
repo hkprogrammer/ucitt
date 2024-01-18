@@ -1,0 +1,23 @@
+name,ID,old rating,new rating,change
+Yihe Dong,1,635,635,0
+Robin Jiang,2,0,442,442
+Tristan Ma,3,0,410,410
+Yu Guo,4,492,522,30
+Tiger Wu,5,368,381,13
+Kyle Chang,6,0,0,0
+Gynaesh Amish,7,0,343,343
+Hitoki Kidahashi,8,1890,1890,0
+James Grossman,9,500,628,128
+Joey Jara,10,0,0,0
+Milan Das,11,196,575,379
+Yixiao Xiong,12,578,1135,557
+Mahyar Abbasian,13,1212,1146,-66
+Gehui Zhou,14,763,788,25
+Brian Chen,15,0,986,986
+Kaifan Yu,16,1100,950,-150
+Tai Le,17,812,762,-50
+Jack Fink,18,1939,1894,-45
+Dahai Hao,19,1721,1756,35
+Rishikumar Gopalan,20,2026,1926,-100
+Kevin Chen,21,0,1291,1291
+Nathan Kwock,22,456,456,0

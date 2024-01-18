@@ -2,6 +2,17 @@ from tournament import *
 from ratingProcessor import *
 
 
+def generateReport(listOfPlayers):
+    f = open("report.txt","w")
+    format = "name,ID,old rating,new rating,change\n"
+    for player in listOfPlayers:
+        format += f"{player.getName()},{player.getID()},{player.getOriginalRating()},{player.getRating()},{player.getRating()-player.getOriginalRating()}\n"
+    
+    f.write(format)
+    f.close()
+    
+    
+
 def sampleImportTournament():
     
     t = open("sample1.csv")
@@ -35,10 +46,10 @@ def sampleImportTournament():
     rp2 = RatingProcessor(tournament2)
     rp2.calculate()
     
-    
+    generateReport(listOfPlayers)
     
     for player in listOfPlayers:
-        print(f"Player: {player.getName()} | oldRating: {player.getOriginalRating()} | newRating: {player.getPass2Adjustment()} | Change: {player.getPass2Adjustment() - player.getOriginalRating()}")    
+        print(f"Player: {player.getName()} | oldRating: {player.getOriginalRating()} | newRating: {player.getRating()} | Change: {player.getRating() - player.getOriginalRating()}")    
         
     pass
 
