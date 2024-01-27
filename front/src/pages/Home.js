@@ -3,6 +3,7 @@
 import React from 'react';
 import './Home.css';
 import ImageScroller from '../Components/ImageScroller';
+// import { Link } from 'react-router-dom';
 
 function Home() {
     return (

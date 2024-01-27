@@ -3,6 +3,8 @@
 import React from "react";
 import "./NavBar.css";
 
+import {Link} from "react-router-dom"
+
 function NavBar() {
     const logo = "apple-touch-icon.png";
     const dropdown = "images/dropdown.png";
@@ -62,14 +64,17 @@ function NavBar() {
     return (
         <div className="nav">
             <div className="nav-topnav">
-                <a className="logo" href="#home">
+                <Link to="/" className="logo">
                     <img src={logo} alt="Table Tennis Petr Logo"/>
                     <h1>UCI Table Tennis Club</h1>
-                </a>
+                </Link>
 
                 {/* Default Navbar for desktop view */}
                 <nav className="nav-desktop nav-links">
-                    <a href="#events">Events</a>
+                    {/* /* <a href="#events">Events</a> */}
+                    
+                    <Link to="/events">Events</Link>
+                    
                     <a href="#ratings">Ratings</a>
                     <button className="nav-login-button" onClick={openCloseForm}>Login</button>
                 </nav>
