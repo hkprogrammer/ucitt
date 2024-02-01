@@ -74,8 +74,8 @@ function NavBar() {
                     {/* /* <a href="#events">Events</a> */}
                     
                     <Link to="/events">Events</Link>
-                    
-                    <a href="#ratings">Ratings</a>
+                    <Link to="/ratings">Ratings</Link>
+                    {/*<a href="#ratings">Ratings</a>*/}
                     {/* <a href="#signin">Sign In</a> */}
                     <Link to="/signin">Sign In</Link>
                     {/* <button className="nav-login-button" onClick={openCloseForm}>Login</button> */}

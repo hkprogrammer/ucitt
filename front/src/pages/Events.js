@@ -26,8 +26,6 @@ function Events() {
         }
       ];
 
-    const props = {events: events}
-
     // checks to see if the screen is narrow enough for mobile version
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 700);
     const hideInfo = () => {
@@ -38,7 +36,7 @@ function Events() {
     return (
         <div className="events-container">
             <div className="events-header">
-                <div className="events-header-item" id="events-header-item-start">Event</div>
+                <div className="events-header-item">Event</div>
                 <div className={isMobile ?  "events-unnecessary": "events-header-item"}>Time/Date</div>
                 <div className={isMobile ?  "events-unnecessary": "events-header-item"}>Capacity</div>
                 <div className={isMobile ?  "events-unnecessary": "events-header-item"}>Location</div>
@@ -47,7 +45,7 @@ function Events() {
             <div className='events-horizontal-line'></div>
             <div className='events-list'>
                 {
-                    props.events.map((ttevent) => {
+                    events.map((ttevent) => {
                         return (
                             <Event event={ttevent}/>
                         )

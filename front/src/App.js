@@ -8,6 +8,8 @@ import Events from './pages/Events';
 import EventBracket from './pages/EventBracket';
 // eslint-disable-next-line
 import SignIn from './pages/SignIn';
+// eslint-disable-next-line
+import Ratings from './pages/Ratings';
 
 // import { Link } from 'react-router-dom';
 import {BrowserRouter, Routes, Route ,Link, Router} from "react-router-dom";
@@ -21,33 +23,15 @@ function App() {
   
 
   return (
-	
-
 	<BrowserRouter>
-		
 		<NavBar />
-		{/* <Home />   */}
-
-
 		<Routes basename="/">
-			<Route 
-			path="/"
-			element = {<Home />}></Route>
-			<Route 
-			path="/events"
-			element = {<Events />}></Route>
-			<Route 
-			path="/signin"
-			element = {<SignIn />}></Route>
+			<Route path="/" element = {<Home />} />
+			<Route path="/events" element = {<Events />} />
+			<Route path="/ratings" element = {<Ratings />} />
+			<Route path="/signin" element = {<SignIn />} />
 		</Routes>
 	</BrowserRouter>
-	
-
-
-	    
-
-	
-
   );
 }
 
