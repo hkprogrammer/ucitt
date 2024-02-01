@@ -36,6 +36,9 @@ function App() {
 			<Route 
 			path="/events"
 			element = {<Events />}></Route>
+			<Route 
+			path="/signin"
+			element = {<SignIn />}></Route>
 		</Routes>
 	</BrowserRouter>
 	
