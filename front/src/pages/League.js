@@ -58,6 +58,7 @@ function League(){
 
            <table border='1'>
                 <thead>
+                    {/* testererrr */}
                     <tr>
                         <th>Player A</th>
                         <th>Score A</th>
