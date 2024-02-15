@@ -1,7 +1,10 @@
 from flask import Blueprint
 from flask import Response
 from flask import request
+from flask_cors import CORS, cross_origin
 import json
+
+
 
 
 
@@ -26,6 +29,7 @@ tests = Blueprint('tests', __name__)
 """
 
 @tests.route("/", methods=["GET", "POST"])
+@cross_origin()
 def hello_world():
     """
     Test function for connectivity
