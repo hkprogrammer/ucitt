@@ -15,10 +15,10 @@ league = Blueprint('league', __name__)
 
 @league.route("/league/getResults", methods=["GET", "POST"])
 @cross_origin()
-def routeTest():
+def getResults():
     
     """
-    sample test, http://localhost:5000/
+    
 
     """
     
@@ -33,7 +33,7 @@ def routeTest():
         x = cur.execute("SELECT * FROM league_results")  
 
         results = x.fetchall()
-        print(results)
+        # print(results)
         response = results
 
     json_response = json.dumps(response)
@@ -42,3 +42,48 @@ def routeTest():
 
 
 
+@league.route("/league/setResults", methods=["POST"])
+@cross_origin()
+def setResults():
+    
+    """
+    sample test, http://localhost:5000/
+
+    """
+    
+    
+    req = request.data
+    req = json.loads(req)
+    
+    response = None
+    
+    try:
+        player_a = req["player_a"]
+        player_b = req["player_b"]
+        score_a = int(req["score_a"])
+        score_b = int(req["score_b"])
+
+
+        with database.get_db() as cur:
+            
+            # x = cur.execute(f"INSERT INTO league_results(player_a,player_b,score_a,score_b) VALUES({player_a},{player_b})")
+            
+            
+            c = cur.execute("SELECT match_id FROM league_results ORDER BY match_id DESC LIMIT 1")
+            match_id = c.fetchall()
+            match_id = int(match_id[0]["match_id"]) + 1
+            
+            
+            x = cur.execute(f"""
+                            INSERT INTO league_results(match_id,player_a,player_b,score_a,score_b)
+                            VALUES({match_id},'{player_a}','{player_b}',{score_a},{score_b});
+                            """)  
+
+            results = {"Status": "Success"}
+            response = results
+    except Exception as ex:
+        response = {"Status": "Error", "Code" : str(ex)}
+
+    json_response = json.dumps(response)
+    json_response = Response(json_response, content_type="application/json")
+    return json_response

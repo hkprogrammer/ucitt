@@ -29,10 +29,10 @@ function App() {
 	<BrowserRouter>
 		{/* <NavBar /> */}
 		<Routes basename="/">
-			<Route path="/" element = {<Home />} />
+			{/* <Route path="/" element = {<Home />} />
 			<Route path="/events" element = {<Events />} />
 			<Route path="/ratings" element = {<Ratings />} />
-			<Route path="/signin" element = {<SignIn />} />
+			<Route path="/signin" element = {<SignIn />} /> */}
 			<Route path="/league" element = {<League />} />
 		</Routes>
 	</BrowserRouter>

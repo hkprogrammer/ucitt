@@ -32,4 +32,4 @@ if __name__ == "__main__":
     # Attempt of using keypairs for HTTPS over TLS
     # keyPairs = (Path("keys/myKey.pem"), Path("keys/myKey.key"))
     
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")

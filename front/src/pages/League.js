@@ -1,31 +1,18 @@
-import React, {useCallback, useState} from 'react';
-import {useEffect } from "react";
-import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 // import {useFetch} from '@uidotenv/usehooks';
 import './League.css';
 
 function League(){
     // props.events == array of event json
     
-
-    // checks to see if the screen is narrow enough for mobile version
-    
-    // const results = [
-    //     {"match_id": 1,"player_a": "Hitoki", "score_a": "3", "score_b": "0", "player_b": "Robin"},
-    //     {"match_id": 2,"player_a": "Hitoki", "score_a": "3", "score_b": "0", "player_b": "Nathan"}
-    // ]
-    
-    var data = null;
-
     const [results, setResults] = useState([]);    
-    const [testName, setTestName] = useState("123");
 
     // const url = useState('http://www.google.com')
-    const url = 'http://localhost:5000/league/getResults';
+    const getUrl = 'http://192.168.137.1:5000/league/getResults';
+    const setUrl = 'http://192.168.137.1:5000/league/setResults';
 
-
-    const getData = useCallback( async()=>{
-        fetch(url, {
+    const getData = ()=>{
+        fetch(getUrl, {
             mode:"cors", 
             method:"GET",
             })
@@ -37,23 +24,74 @@ function League(){
                 setResults(data);
 
 
+            })
+            .catch((err)=>{
+                console.error(err)
             });
 
         
-    });
+    }
+
+    const submitData = async()=>{
+
+
+        const player_a = document.getElementById("player_a").value;
+        const player_b = document.getElementById("player_b").value;
+        const score_a = parseInt(document.getElementById("score_a").value);
+        const score_b = parseInt(document.getElementById("score_b").value);
+
+        
+
+
+        fetch(setUrl, {
+            mode:"cors", 
+            method:"POST",
+            body: JSON.stringify({
+                "player_a": player_a,
+                "player_b": player_b,
+                "score_a": score_a,
+                "score_b": score_b
+            }),
+            headers: {'Content-Type':'application/json'}
+            })
+            .then((res) => {
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+                // setResults(data);
+                getData();
+                
+
+            })
+            .catch((err)=>{
+                console.error(err)
+            });
+
+        
+
+
+    }
+    
+    useEffect(()=>{
+
+        getData();
+
+
+    },[]);
+
 
     return (
         <div className="league-container">
            
-           Results:
-           {testName}
+           <h4>Input Results for Game Night (2/15/2024):</h4>
            <form className='form'>
-                <input type="text" className='name' placeholder='Player 1'></input>
-                <input type="number" className='score' placeholder='3'></input>
-                <input type="number" className='score' placeholder='0'></input>
-                <input type="text" className='name' placeholder='Player 2'></input>
+                <input type="text" className='name' placeholder='Player 1' id='player_a'></input>
+                <input type="number" className='score' placeholder='3' id="score_a"></input>
+                <input type="number" className='score' placeholder='0' id="score_b"></input>
+                <input type="text" className='name' placeholder='Player 2' id="player_b"></input>
            </form>
-           <button onClick={getData}>Submit</button>
+           <button onClick={submitData}>Submit</button>
            <hr></hr>
 
            <table border='1'>
