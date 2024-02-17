@@ -3,9 +3,46 @@
     font-size: 3em;
     color: var(--font-color);
 }
-
 .sign-in-description-text {
     text-align: center;
     font-size: 2em;
     color: var(--font-color);
+}
+.sign-in-form-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sign-in-form{
+    display: flex;
+    flex-direction: column;
+    width: 15em;
+}
+.sign-in-form-item-text{
+    padding: 0.5em;
+    margin: 0.4em;
+    border: solid;
+    border-radius: 0.3em;
+    border-color: #8a8a8a;
+    outline: none;
+}
+.sign-in-form-item-text:focus{
+    border-color: #333;
+}
+.sign-in-form-item-button{
+    padding: 0.5em;
+    margin: 0.4em;
+    border: solid;
+    border-radius: 0.3em;
+    border-color: #111;
+    background-color: #111;
+    outline: none;
+    color: #FFF;
+    transition: all var(--transition-time);
+}
+.sign-in-form-item-button:hover{
+    cursor: pointer;
+    border-color: #333;
+    background-color: #333;
+    transition: all var(--transition-time);
 }
