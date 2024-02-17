@@ -8,8 +8,8 @@ function League(){
     const [results, setResults] = useState([]);    
 
     // const url = useState('http://www.google.com')
-    const getUrl = 'http://192.168.137.1:5000/league/getResults';
-    const setUrl = 'http://192.168.137.1:5000/league/setResults';
+    const getUrl = 'http://127.0.0.1:5000/league/getResults';
+    const setUrl = 'http://127.0.0.1:5000/league/setResults';
 
     const getData = ()=>{
         fetch(getUrl, {
