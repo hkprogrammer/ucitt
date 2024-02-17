@@ -12,7 +12,7 @@ import SignIn from './pages/SignIn';
 import Ratings from './pages/Ratings';
 
 // import { Link } from 'react-router-dom';
-import {BrowserRouter, Routes, Route ,Link, Router} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 function App() {
 
