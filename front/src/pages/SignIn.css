@@ -1,11 +1,7 @@
 .sign-in-welcome-text {
     text-align: center;
-    font-size: 3em;
-    color: var(--font-color);
-}
-.sign-in-description-text {
-    text-align: center;
-    font-size: 2em;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
     color: var(--font-color);
 }
 .sign-in-form-container{
@@ -13,14 +9,20 @@
     flex-direction: column;
     align-items: center;
 }
+.sign-in-form-width-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 15em;
+}
 .sign-in-form{
     display: flex;
     flex-direction: column;
-    width: 15em;
+    width: 100%;
 }
 .sign-in-form-item-text{
+    margin-bottom: 0.4em;
     padding: 0.5em;
-    margin: 0.4em;
     border: solid;
     border-radius: 0.3em;
     border-color: #8a8a8a;
@@ -30,8 +32,9 @@
     border-color: #333;
 }
 .sign-in-form-item-button{
+    width: 100%;
     padding: 0.5em;
-    margin: 0.4em;
+    margin-bottom: 0.1em;
     border: solid;
     border-radius: 0.3em;
     border-color: #111;
@@ -45,4 +48,7 @@
     border-color: #333;
     background-color: #333;
     transition: all var(--transition-time);
+}
+.sign-in-register-text{
+    text-align: center;
 }

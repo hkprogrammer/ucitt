@@ -32,8 +32,8 @@ function App() {
 			<Route path="/" element = {<Home />} />
 			<Route path="/events" element = {<Events />} />
 			<Route path="/ratings" element = {<Ratings />} />
-			<Route path="/signin" element = {<SignIn />} />
-			<Route path="/league" element = {<League />} />
+			<Route path="/sign-in" element = {<SignIn />} />
+			{/*<Route path="/sign-up" element = {<SignUp />} />*/}
 		</Routes>
 	</BrowserRouter>
   );

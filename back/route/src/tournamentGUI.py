@@ -1,5 +1,6 @@
 
 import tkinter
+import ttk
 
 
 class interface:
@@ -13,6 +14,8 @@ class interface:
         self.window.title("UCITT Tournament Manager")
         self.window.geometry("800x600")
         
+        
+        
         self.inputs = tkinter.Frame(self.window)
         self.inputs.grid(row=0,column=0)
         
@@ -23,6 +26,7 @@ class interface:
         # self.playerName1
         
         
+        self.createInputsModule(self.inputs)
         
         
         
@@ -31,7 +35,26 @@ class interface:
         
              
         
-    
+    def createInputsModule(self, frame):
+        
+        # inputs = tkinter.Entry(frame)
+        # inputs.grid(row=0,column=0)
+        
+        i = tkinter.StringVar(value="")
+        inputs = ttk.Combobox(frame,width=30,textvariable=i)
+        
+        values = ["test1","test2","abc","cef"]
+        
+        inputs["value"] = list(sorted(values))
+        
+        inputs.grid(row=0,column=0)
+        
+        
+
+
+        
+        
+        
     
     
     

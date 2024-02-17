@@ -2,27 +2,37 @@
 from collections import defaultdict
 
 
-
-
 class Player:
     def __init__(self, name, initialRating, id = -1):
         self.name = name
         self.rating = initialRating
         self.originalRating = initialRating
-        self.pass1Gained = 0
-        self.pass1Final = self.rating
-        self.pass2Adjustment = self.rating
-        self.pass3Part1Adjustment = self.rating
-        self.pass3Part2Adjustment = self.rating
-        self.pass3Gained = 0
+        self.ratingHistory = [initialRating]
+        self.absoluteOriginalRating = self.rating
+        self.resetPlayer()
         
-        self.finalRating = self.rating
+        # self.finalRating = self.rating
         
         self.id = id
         
         
     def setPass1Gained(self, p1Gain):
         self.pass1Gained = p1Gain
+        
+        
+    def resetPlayer(self):
+        self.originalRating = self.rating
+        
+        self.pass1Gained = 0
+        self.pass1Final = self.rating
+        self.pass2Adjustment = self.rating
+        self.pass3Part1Adjustment = self.rating
+        self.pass3Part2Adjustment = self.rating
+        self.pass3Gained = 0
+        self.pass2Adjustment = self.rating
+        
+        self.ratingHistory.append(self.originalRating)
+        
         
     def setPass1Final(self, p1Final):
         self.pass1Final = p1Final
@@ -69,9 +79,13 @@ class Player:
     def getRating(self):
         return self.rating
     
+    def getAbsoluteOriginalRating(self):
+        return self.ratingHistory[0]
+    
     def setNewRating(self, rating):
         try:
             self.rating = int(rating)
+            self.ratingHistory.append(self.rating)
         except ValueError:
             print(f"rating={rating} is not an integer")
             
@@ -130,6 +144,11 @@ class Tournament:
         self.tournamentDate = tournamentDate
         self.tournamentType = tournamentType
         self.listOfPlayers = listOfPlayers
+        self.specialRule = lambda x:-1
+        
+        for player in self.listOfPlayers:
+            player.resetPlayer()
+        
         self.matches = []
         
     def reportScore(self, player1, player2, score1, score2, winner):
@@ -149,6 +168,10 @@ class Tournament:
         
         
     def getListOfPlayers(self):
+        
+        
+        
+        
         return self.listOfPlayers
         
     def getMatches(self):
@@ -162,14 +185,32 @@ class Tournament:
             if match not in matches[match.getPlayer2().getID()]:
                 matches[match.getPlayer2().getID()].append(match)
     
+        
+    
         return matches
     
     
+    def setSpecialRule(self, func):
+        self.specialRule = func
+        
+        
+    
     def importFile(self, file):
         
-        next(file)
+        header = file.readline()
+        winnerFlag = False
+        matchIdFlag = False
+        if len(header) != 5:
+            winnerFlag = True
+        if "match_id" in header:
+            matchIdFlag = True
+        
+        # next(file)
         for line in file:
             l = line.strip().split(",")
+            
+            if matchIdFlag:
+                l.pop(0)
             
             player1, player2 = None, None
             winner = None
@@ -180,8 +221,17 @@ class Tournament:
                 if player.getID() == l[1]:
                     player2 = player            
 
-                if player.getID() == l[4]:
-                    winner = player
+
+                if not winnerFlag:
+                    if player.getID() == l[4]:
+                        winner = player
+                    continue
+                
+                #compare score higher
+                if l[2] >= l[3]:
+                    winner = player1
+                else:
+                    winner = player2
 
 
             
