@@ -15,7 +15,7 @@ import Ratings from './pages/Ratings';
 import League from './pages/League';
 
 // import { Link } from 'react-router-dom';
-import {BrowserRouter, Routes, Route ,Link, Router} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 function App() {
 
