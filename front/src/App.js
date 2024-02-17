@@ -11,6 +11,9 @@ import SignIn from './pages/SignIn';
 // eslint-disable-next-line
 import Ratings from './pages/Ratings';
 
+// eslint-disable-next-line
+import League from './pages/League';
+
 // import { Link } from 'react-router-dom';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 

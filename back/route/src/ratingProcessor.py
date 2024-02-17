@@ -1,5 +1,5 @@
-from tournament import Tournament
-from tournament import testerTournament
+# from tournament import Tournament
+# from tournament import testerTournament
 from tournament import Player
 
 
@@ -10,7 +10,7 @@ class RatingProcessor:
     POINT_SPREAD = [[238,0,50], [213, 1, 45], [188, 1, 40], [163, 2, 35], [138, 2, 30], [113, 3, 25], [88, 4, 20], [63, 5, 16], [38, 6, 13], [13, 7, 10], [0, 8, 8]]
 
     
-    def __init__(self, tournament: Tournament):
+    def __init__(self, tournament: "Tournament"):
         self.tournament = tournament
         self.POINT_SPREAD = RatingProcessor.POINT_SPREAD
         self.matches = self.tournament.getMatches()
@@ -100,7 +100,7 @@ class RatingProcessor:
                 else:
                     player.setPass2Adjustment(player.getRating())
                     
-            print(player, player.getRating(), player.getPass1Final(), player.getPass2Adjustment())
+            # print(player, player.getRating(), player.getPass1Final(), player.getPass2Adjustment())
 
                 
                 
@@ -112,16 +112,19 @@ class RatingProcessor:
             if not listOfOpponents:
                 continue
             
-            print(listOfOpponents, player)
+            
             if self.allUnrated(listOfOpponents):
                 p2Adjustment = 1200
                 player.setPass2Adjustment(p2Adjustment)
-                print(player, player.getRating(), player.getPass1Final(), player.getPass2Adjustment())
+                
                 continue
             
             playerWL = self.matchWL(player, self.matches[player.getID()])
+                
+            
             if len(playerWL["matchesWon"]) >= 1 and len(playerWL["matchesLost"]) >= 1:
                 # assuming at least 1 player has a rating because of the prior if statment
+                
                 
                 
                 bestWin = self.bestWinPlayer(player, playerWL["matchesWon"])
@@ -130,6 +133,8 @@ class RatingProcessor:
                 
                 average = (bestWin.getPass2Adjustment() + worstLost.getPass2Adjustment()) // 2
                 player.setPass2Adjustment(average)
+                
+                
                 continue
             
             if(len(playerWL["matchesWon"]) >=1 and len(playerWL["matchesLost"]) == 0):
@@ -166,22 +171,18 @@ class RatingProcessor:
             if(len(playerWL["matchesWon"]) == 0 and len(playerWL["matchesLost"]) >= 1):
                 
                 
-                opponentList = self.getAllOpponents(player, self.matches[player.getID()])
+                # opponentList = self.getAllOpponents(player, self.matches[player.getID()])
+                worstLost = self.worstLost(player, [match for match in playerWL["matchesLost"] if match.getOpponent(player).getRating()  != 0 ])
+                worstLost = max(0, worstLost)
                 intermediate = 0
-                for opponent in opponentList:
-                    opponentWL = self.matchWL(opponent, self.matches[opponent.getID()])
-                    bestWin = self.bestWin(opponent, opponentWL["matchesWon"])
-                    worstLost = self.worstLost(opponent, opponentWL["matchesLost"])
-                    
-                    if bestWin == float("inf") or worstLost == float("inf"):
-                        #that means this opponent has not lost or not won a single match
-                        continue
-                    
-                
-                    
-                    diff = abs(bestWin - worstLost)
+                for opponent in self.tournament.getListOfPlayers():
                     
                     
+                    opponentPass2 = opponent.getPass2Adjustment()
+                    
+                    
+                    diff = abs(worstLost - opponentPass2)
+                    # print(diff)
                     if 1<=diff<=50:
                         intermediate += 10
                         
@@ -194,13 +195,17 @@ class RatingProcessor:
                     
                 
                 
-                currentWorstLost = self.worstLost(player, playerWL["matchesLost"])
-                pass2Adjust = currentWorstLost + intermediate
+               
+                pass2Adjust = worstLost + intermediate
                 player.setPass2Adjustment(pass2Adjust)
+                
+                
+                # print(player, pass2Adjust, intermediate)
+                # 1/0
                 
             
             
-            print(player, player.getRating(), player.getPass1Final(), player.getPass2Adjustment())
+            # print(player, player.getRating(), player.getPass1Final(), player.getPass2Adjustment())
           
     def pass3(self):
         
@@ -210,51 +215,58 @@ class RatingProcessor:
             
             
             playerWL = self.matchWL(player, self.matches[player.getID()])
-            if player.getRating() == 0:
-                if playerWL["matchesWon"] == 0 or playerWL["matchesLost"] == 0:
-                    player.setPass3Part2Adjustment(player.getPass2Adjustment())
-                    continue
-            
-            
-            matches = self.matches[player.getID()]
-            pointsGained = self.pointExchangeTable(player, matches, usingPass2=True)
-            player.setPass3Part1Adjustment(pointsGained)
-            player.setPass3Gained(pointsGained)
-            
-            if pointsGained < 50:
+            if player.getRating() == 0 and (playerWL["matchesWon"] == 0 or playerWL["matchesLost"] == 0):
+                
                 player.setPass3Part2Adjustment(player.getPass2Adjustment())
-                # continue
-            
-            if 50 <= pointsGained <= 74:
-                player.setPass3Part2Adjustment(player.getPass2Adjustment() + pointsGained)
-                
-                
-            if pointsGained >=75:
-                
-                
-                if len(playerWL["matchesWon"]) >= 1 and len(playerWL["matchesLost"]) >= 1:
-                    bestWin = self.bestWin(player, playerWL["matchesWon"], usingPass2=True)
-                    worstLost = self.worstLost(player, playerWL["matchesLost"], usingPass2=True)
                     
-                    bestWorstAvg = (bestWin + worstLost) //2
-                    avg = (bestWorstAvg + player.getPass2Adjustment() + pointsGained)//2
-                    player.setPass3Part2Adjustment(avg)
+            else:
+                
+                matches = self.matches[player.getID()]
+                pointsGained = self.pointExchangeTable(player, matches, usingPass2=True)
+                player.setPass3Part1Adjustment(pointsGained)
+                player.setPass3Gained(pointsGained)
+                
+                if pointsGained < 50:
+                    player.setPass3Part2Adjustment(player.getPass2Adjustment())
+                    # continue
+                
+                if 50 <= pointsGained <= 74:
+                    player.setPass3Part2Adjustment(player.getPass2Adjustment() + pointsGained)
                     
+                    
+                if pointsGained >=75:
+                    
+                    
+                    if len(playerWL["matchesWon"]) >= 1 and len(playerWL["matchesLost"]) >= 1:
+                        bestWin = self.bestWin(player, playerWL["matchesWon"], usingPass2=True)
+                        worstLost = self.worstLost(player, playerWL["matchesLost"], usingPass2=True)
+                        
+                        bestWorstAvg = (bestWin + worstLost) //2
+                        avg = (bestWorstAvg + player.getPass2Adjustment() + pointsGained)//2
+                        player.setPass3Part2Adjustment(avg)
+                        
 
-                #mathematical median of all opponents rating
-                
-                if len(playerWL["matchesWon"]) >= 1 and len(playerWL["matchesLost"]) == 0:
-                    player.setPass3Part2Adjustment(self.mathematicalMedian)
+                    #mathematical median of all opponents rating
                     
+                    if len(playerWL["matchesWon"]) >= 1 and len(playerWL["matchesLost"]) == 0:
+                        player.setPass3Part2Adjustment(self.mathematicalMedian)
+                        
+                
+                player.setPass3Part2Adjustment(max(player.getRating(), player.getPass3Part2Adjustment()))
             
-            player.setPass3Part2Adjustment(max(player.getRating(), player.getPass3Part2Adjustment()))
             
+            specialValue = self.tournament.specialRule(player.getOriginalRating())
+            print(specialValue)
+            if  specialValue != -1:
+                player.setPass3Part2Adjustment(specialValue)
+                print("SETTING SPECIAL VALUE " + str(specialValue) )
+                
             
-            self.special = []
-            #special cases:
-            if player in self.special:
-                #DO SOMETHING
-                pass
+            # self.special = []
+            # #special cases:
+            # if player in self.special:
+            #     #DO SOMETHING
+            #     pass
             
             
                 
@@ -469,13 +481,3 @@ class RatingProcessor:
                              
     #     raise Exception(f"unknown point spread of {pointDiff} of p1: {player1}, p2: {player2}")
 
-
-if __name__ == "__main__":
-    
-    
-    tournament = testerTournament()
-    rp = RatingProcessor(tournament)
-    
-    print(rp.pass1())
-    print()
-    print(rp.pass2())

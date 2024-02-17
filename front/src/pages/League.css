@@ -1,0 +1,30 @@
+.name{
+
+    font-size: medium;
+    width:125px;
+    
+}
+
+.score{
+    font-size: large;
+    font-weight: bold;
+    width: 25px;
+}
+
+.form{
+
+}
+
+.league-container{
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
