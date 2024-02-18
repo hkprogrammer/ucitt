@@ -103,6 +103,11 @@
         margin-right: 10%;
     }
 
+    .nav-links > div{
+        display: flex;
+        flex-direction: column;
+    }
+
     .nav-topnav h1 {
         font-size: 5vw;
     }
