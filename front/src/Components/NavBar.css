@@ -76,10 +76,9 @@
 
     .nav-mobile-buttons {
         display: flex;
-        border-radius: 0.5em;
         padding: 0.5em;
         margin-left: auto;
-        margin-right: 1em;
+        margin-right: 0;
     }
 
     .nav-dropdown-menu {
@@ -105,18 +104,18 @@
     }
 
     .nav-topnav h1 {
-        font-size: 1em;
+        font-size: 5vw;
     }
 }
 
 .nav-login-button, .nav-toggle-dropdown {
     padding: 1em;
-    margin-right: 1em;
     font-size: 1em;
 
-    
     /* added by Robin */
     cursor: pointer;
+    border: none;
+    background: var(--nav-bar-background);
 }
 
 .nav-form-popup {
