@@ -1,21 +1,28 @@
 .name{
 
     font-size: medium;
-    width:125px;
+    display: block;
+
     
 }
 
 .score{
     font-size: large;
     font-weight: bold;
-    width: 25px;
+    display: block;
+
 }
 
-.form{
 
+.form{
+  max-width:600px;
+  display: flex;
+  flex-direction: row;
+  padding:10px;
 }
 
 .league-container{
+  position: relative;
 }
 
 input::-webkit-outer-spin-button,
@@ -27,4 +34,18 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+
+.Alert{
+
+  width:75%;
+  min-width: 200px;
+  transform: translate(15%,0);
+  position: absolute;
+  top: -1px;
+  left:0px;
+  z-index: 10;
+  opacity: 0.9;
+
 }
