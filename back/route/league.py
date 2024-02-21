@@ -56,7 +56,7 @@ def getResults():
     
     with database.get_db() as cur:
         
-        x = cur.execute("SELECT * FROM league_results")  
+        x = cur.execute("SELECT * FROM league_result")  
 
         results = x.fetchall()
         # print(results)
@@ -82,27 +82,41 @@ def setResults():
     req = json.loads(req)
     
     response = None
-    
+
     try:
+
         player_a = req["player_a"]
         player_b = req["player_b"]
-        score_a = int(req["score_a"])
-        score_b = int(req["score_b"])
-
+        score_a = req["score_a"]
+        score_b = req["score_b"]
+        
+        player_a_name = player_a["player_name"]
+        player_a_ucitt_id = player_a["player_ucitt_id"]
+        
+        player_b_name = player_b["player_name"]
+        player_b_ucitt_id = player_b["player_ucitt_id"]
+        
+        player_a_score = score_a["value"]
+        player_b_score = score_b["value"]
+        
 
         with database.get_db() as cur:
             
             # x = cur.execute(f"INSERT INTO league_results(player_a,player_b,score_a,score_b) VALUES({player_a},{player_b})")
             
             
-            c = cur.execute("SELECT match_id FROM league_results ORDER BY match_id DESC LIMIT 1")
+            c = cur.execute("SELECT match_id FROM league_result ORDER BY match_id DESC LIMIT 1")
             match_id = c.fetchall()
-            match_id = int(match_id[0]["match_id"]) + 1
+            
+            if len(match_id) > 0:
+                match_id = int(match_id[0]["match_id"]) + 1
+            else:
+                match_id = 1
             
             
             x = cur.execute(f"""
-                            INSERT INTO league_results(match_id,player_a,player_b,score_a,score_b)
-                            VALUES({match_id},'{player_a}','{player_b}',{score_a},{score_b});
+                            INSERT INTO league_result(match_id,player_a,player_b,score_a,score_b)
+                            VALUES({match_id},'{player_a_name}','{player_b_name}',{player_a_score},{player_b_score});
                             """)  
 
             results = {"Status": "Success"}
@@ -135,8 +149,11 @@ def exportResults():
     
         with database.get_db() as cur:
             
-            x = cur.execute("SELECT * FROM league_results")  
-
+            x = cur.execute("""SELECT lr.match_id as match_id, lr.score_a as score_a, lr.score_b as score_b, a.player_ucitt_id as player_a, b.player_ucitt_id as player_b
+                            FROM league_result as lr 
+                            LEFT JOIN player a ON lr.player_a = a.player_name 
+                            LEFT JOIN player b ON lr.player_b = b.player_name
+                            """)  
             results = x.fetchall()
             
             
@@ -151,6 +168,78 @@ def exportResults():
     # json_response = json.dumps(response)
     json_response = response # returning text file
     json_response = Response(json_response, content_type="text/plain")
+    return json_response
+
+
+
+@league.route("/league/resetResults", methods=["GET"])
+@cross_origin()
+def resetResults():
+    
+    """
+    Resets database for current league.
+    
+
+    """
+
+    
+    
+    try:
+    
+        with database.get_db() as cur:
+            
+            x = cur.execute("DELETE FROM league_result WHERE match_id > 0;")  
+
+            results = x.fetchall()
+            
+            
+            
+            # print(results)
+            response = {"Status": "Success", "Message": results}
+    except Exception as ex:
+        print(ex)
+        response = {"Status": "Error", "Code": str(ex)}
+
+    json_response = json.dumps(response)
+    json_response = Response(json_response, content_type="application/json")
+    return json_response
+
+
+
+@league.route("/league/deleteResult", methods=["DELETE"])
+@cross_origin()
+def deleteResult():
+    
+    """
+    Delete rows from database for current league.
+    
+
+    """
+    
+    
+    req = request.data
+    req = json.loads(req)
+    
+    try:
+    
+        match_id = int(req['match_id'])
+    
+
+        with database.get_db() as cur:
+            
+            # print(f"DELETE FROM league_results WHERE match_id = {match_id};")
+            x = cur.execute(f"DELETE FROM league_result WHERE match_id = {match_id};")  
+
+            results = x.fetchall()
+ 
+            # print(results)
+            response = {"Status": "Success", "Message": results}
+    except Exception as ex:
+        print(ex)
+        response = {"Status": "Error", "Code": str(ex)}
+
+    json_response = json.dumps(response)
+    json_response = Response(json_response, content_type="application/json")
     return json_response
 
 

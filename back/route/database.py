@@ -9,7 +9,7 @@ def creates(db):
     cur = db.cursor()
     
     statement = """
-    CREATE TABLE IF NOT EXISTS league_results(
+    CREATE TABLE IF NOT EXISTS league_result(
         
         match_id int,
         player_a char(255),
@@ -22,18 +22,21 @@ def creates(db):
     );
     
     
-    --INSERT INTO league_results(match_id, player_a,player_b,score_a,score_b) VALUES(2,'hitoki','nathan',3,0);
-    --INSERT INTO league_results(match_id, player_a,player_b,score_a,score_b) VALUES(3,'hitoki','kevin',3,0);
-    --INSERT INTO league_results(match_id, player_a,player_b,score_a,score_b) VALUES(4,'james','hitoki',3,0);
-    --INSERT INTO league_results(match_id, player_a,player_b,score_a,score_b) VALUES(5,'james','robin',3,0);
-    --INSERT INTO league_results(match_id, player_a,player_b,score_a,score_b) VALUES(6,'james','kevin',3,0);
-    --INSERT INTO league_results(match_id, player_a,player_b,score_a,score_b) VALUES(7,'kevin','robin',3,0);
-    --INSERT INTO league_results(match_id, player_a,player_b,score_a,score_b) VALUES(8,'nathan','robin',3,0);
+    CREATE TABLE IF NOT EXISTS Player(
+       
+        player_ucitt_id int, 
+        player_name char(255) NOT NULL,
+        player_nctta_id int,
+        player_usatt_id int,
+        player_ucitt_rating int CHECK(player_ucitt_rating >= 0),
+        player_nctta_rating int CHECK(player_ucitt_rating >= 0),
+        player_usatt_rating int CHECK(player_ucitt_rating >= 0),
+        PRIMARY KEY(player_ucitt_id)
 
-
-
+    );
     
-    
+    --INSERT INTO Player(player_ucitt_int,player_name, player_ucitt_rating) VALUES(1,'Hitoki', 1930);
+    --INSERT INTO Player(player_ucitt_int,player_name, player_ucitt_rating) VALUES(2,'Robin', 700);
     
     """
     cur.executescript(statement)

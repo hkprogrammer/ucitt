@@ -7,6 +7,7 @@ from flask_cors import CORS,cross_origin
 from route.routes import routes as r1
 from route.tests import tests as r2
 from route.league import league as r3
+from route.players import players as r4
 
 ASSETS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -19,6 +20,7 @@ app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 app.register_blueprint(r1)
 app.register_blueprint(r2)
 app.register_blueprint(r3)
+app.register_blueprint(r4)
 
 
 

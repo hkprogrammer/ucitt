@@ -86,28 +86,39 @@ function League() {
     }
 
     const submitResults = async () => {
-        // const player_a = document.getElementById("player_a").value;
-        // const player_b = document.getElementById("player_b").value;
-        // const score_a = parseInt(document.getElementById("score_a").value);
-        // const score_b = parseInt(document.getElementById("score_b").value);
+
+        let player_a = selectPlayerA[0];
+        let player_b = selectPlayerB[0];
+        let score_a = selectScoreA[0];
+        let score_b = selectScoreB[0];
 
 
-        const player_a = selectPlayerA[0];
-        const player_b = selectPlayerB[0];
-        const score_a = selectScoreA[0];
-        const score_b = selectScoreB[0];
-
-
-        if(player_a == undefined || player_b == undefined){
+        if(player_a === undefined || player_b === undefined){
             console.warn("Player not in database");
             showAlert("Player not in database!!", "warn");
             return;
         }
-        if(_playerNameList.indexOf(player_a.value) == -1 || _playerNameList.indexOf(player_b.value) == -1){
+        if(_playerNameList.indexOf(player_a.value) === -1 || _playerNameList.indexOf(player_b.value) === -1){
             console.warn("Player not in database");
             showAlert("Player not in database", "warn");
             return;
         }
+
+        if(player_a.player_name === player_b.player_name){
+            showAlert("Same person for player A and B", "danger");
+            return;
+        }
+
+        //reverse playerNames so left player is always winner
+        if(score_a.value<score_b.value){
+            var _temp = player_a;
+            var _temp1 = score_a;
+            player_a = player_b;
+            score_a = score_b;
+            score_b = _temp1;
+            player_b = _temp;
+        }
+        
 
 
         fetch(setUrl, {
@@ -144,7 +155,7 @@ function League() {
         const _deleteResultsCB = async () => {
             fetch(delUrl, {
                 mode: "cors",
-                method: "POST",
+                method: "DELETE",
                 body: JSON.stringify({
 
                     "match_id": id
@@ -200,7 +211,7 @@ function League() {
             let id = player["player_ucitt_id"];
             let name = player["player_name"];
             let rating = player["player_ucitt_rating"];
-            let label = name + ` (${rating})`;
+            let label = name + ` (${id})`;
             let value = i;
 
             formattedArray.push({
@@ -231,17 +242,11 @@ function League() {
     useEffect(()=>{
 
         getPlayerData();
+        getResultsData();
+        resetMaxPlayerChar();
 
     }, [])
 
-
-    useEffect(() => {
-
-        getResultsData();
-        console.log("test")
-
-
-    }, []);
 
 
     const resetMaxPlayerChar = ()=>{
@@ -254,7 +259,7 @@ function League() {
         }
     }
 
-    resetMaxPlayerChar();
+    
     
     return (
         <div className="league-container">
