@@ -1,5 +1,0 @@
-
-#priority imports
-Flask==3.0.0
-pyOpenSSL==23.3.0
-Flask-Cors==4.0.0
