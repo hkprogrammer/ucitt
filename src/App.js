@@ -14,8 +14,10 @@ import Ratings from './pages/Ratings';
 // eslint-disable-next-line
 import League from './pages/League';
 
+import Announcements from './pages/Announcements'
+
 // import { Link } from 'react-router-dom';
-import {BrowserRouter, Routes, Route ,Link, Router} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 function App() {
 
@@ -27,13 +29,15 @@ function App() {
 
   return (
 	<BrowserRouter>
-		{/* <NavBar /> */}
+		<NavBar />
 		<Routes basename="/">
 			<Route path="/" element = {<Home />} />
 			<Route path="/events" element = {<Events />} />
 			<Route path="/ratings" element = {<Ratings />} />
-			<Route path="/signin" element = {<SignIn />} />
+			<Route path="/sign-in" element = {<SignIn />} />
+			<Route path="/announcements" element = {<Announcements />} />
 			<Route path="/league" element = {<League />} />
+			{/*<Route path="/sign-up" element = {<SignUp />} />*/}
 		</Routes>
 	</BrowserRouter>
   );

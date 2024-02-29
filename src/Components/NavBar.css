@@ -9,7 +9,8 @@
     align-items: center;
     margin: 0;
     /*deleted by Robin*/
-    /*width: 100%;*/
+    /* added back by Hitoki 2/18/2024 */
+    width: 100%;
     padding: .3em;
 }
 
@@ -76,19 +77,20 @@
 
     .nav-mobile-buttons {
         display: flex;
-        border-radius: 0.5em;
         padding: 0.5em;
         margin-left: auto;
-        margin-right: 1em;
+        margin-right: 0;
     }
 
     .nav-dropdown-menu {
         display: flex;
         flex-direction: column;
         background-color: var(--nav-bar-background);
+        opacity: 0.8;
         max-height: 0;
         overflow: hidden;
         transition: transform max-height 10s linear;
+        width:100%;
     }
 
     .nav-dropdown-menu.show {
@@ -104,19 +106,24 @@
         margin-right: 10%;
     }
 
+    .nav-links > div{
+        display: flex;
+        flex-direction: column;
+    }
+
     .nav-topnav h1 {
-        font-size: 1em;
+        font-size: 5vw;
     }
 }
 
 .nav-login-button, .nav-toggle-dropdown {
     padding: 1em;
-    margin-right: 1em;
     font-size: 1em;
 
-    
     /* added by Robin */
     cursor: pointer;
+    border: none;
+    background: var(--nav-bar-background);
 }
 
 .nav-form-popup {

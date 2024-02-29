@@ -6,6 +6,25 @@ import "./NavBar.css";
 import {Link} from "react-router-dom"
 
 function NavBar() {
+    // Rendering links on page by using a dictionary of "text : path"
+    const renderLinks = () => {
+        const links = {
+            "Events": "/events",
+            "Ratings": "/ratings",
+            "Sign In": "/sign-in"
+        };
+    
+        return (
+            <div>
+                {Object.entries(links).map(([text, path]) => (
+                    <Link key={text} to={path.startsWith('/') ? path : `/${path}`}>
+                        {text}
+                    </Link>
+                ))}
+            </div>
+        );
+    };
+
     const logo = "apple-touch-icon.png";
     const dropdown = "images/dropdown.png";
     // Clicking the dropdown menu will either show or hide it depending on current state
@@ -71,19 +90,15 @@ function NavBar() {
 
                 {/* Default Navbar for desktop view */}
                 <nav className="nav-desktop nav-links">
-                    {/* /* <a href="#events">Events</a> */}
-                    
-                    <Link to="/events">Events</Link>
+                    {/* <Link to="/events">Events</Link>
                     <Link to="/ratings">Ratings</Link>
-                    {/*<a href="#ratings">Ratings</a>*/}
-                    {/* <a href="#signin">Sign In</a> */}
-                    <Link to="/signin">Sign In</Link>
+                    <Link to="/sign-in">Sign In</Link> */}
+                    {renderLinks()}
                     {/* <button className="nav-login-button" onClick={openCloseForm}>Login</button> */}
                 </nav>
 
                 {/* Hidden mobile buttons that will appear only in mobile view */}
                 <div className="nav-mobile-buttons">
-                    {/* <button className="nav-login-button" onClick={openCloseForm}>Login</button> */}
                     <button className="nav-toggle-dropdown" onClick={toggleDropdown}>
                         <img src={dropdown} alt="Dropdown three lines icon"/>
                     </button>
@@ -92,11 +107,10 @@ function NavBar() {
 
             {/* Mobile dropdown menu that will come down upon clicking the dropdown button*/}
             <div className="nav-dropdown-menu nav-links">
-                {/* <a href="#events">Events</a> */}
-                <Link to="/events">Events</Link>
-                <a href="#ratings">Ratings</a>
-                <Link to="/signin">Sign In</Link>
-                {/* <a href="#signin">Sign In</a> */}
+                {/* <Link to="/events">Events</Link>
+                <Link to="ratings">Ratings</Link>
+                <Link to="/sign-in">Sign In</Link> */}
+                {renderLinks()}
             </div>
 
             {/* Login pop-up in center of screen that is hidden until the login button is clicked*/}
