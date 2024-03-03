@@ -1,7 +1,5 @@
 import React from 'react';
 import './EventBracket.css';
-import Button from '../Components/Button';
-
 function EventBracket(props) {
     /*
     *   Takes 1 prop called event with the following attributes:
@@ -18,13 +16,7 @@ function EventBracket(props) {
     */
 
   return (
-    <div className='eventbracket-container'>
-        <div className='back-button'>
-            <Button 
-                text="❮ Back"
-                href="../"
-            />
-        </div>
+    <div className='eventbracket-container bold'>
         EventBracket
     </div>
   )

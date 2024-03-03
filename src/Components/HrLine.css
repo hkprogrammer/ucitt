@@ -1,0 +1,8 @@
+.horizontal-line{
+   
+    margin-left: auto;
+    margin-right: auto;
+    height: 0.2em;
+    background-color: var(--yellow-line);
+    margin-bottom: 2em;
+}
