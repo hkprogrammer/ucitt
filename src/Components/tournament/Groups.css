@@ -1,0 +1,19 @@
+.groups-table{
+    width:100%;
+}
+
+.groups-table th{
+    border: 1px black solid;
+    border-collapse: separate;
+}
+
+.groups-table td{
+    border: 1px black solid;
+    border-collapse: separate;
+}
+
+
+
+.disbaled{
+    background-color: darkgrey;
+}

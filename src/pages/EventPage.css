@@ -28,7 +28,17 @@
 }   
 
 .event-header{
-    font-size:larger;
+    font-size:xx-large;
     font-weight: bold;
     margin:5px;
+}
+
+.descriptions div{
+    margin-bottom: 20px;
+}
+.register{
+    margin-bottom: 20px;
+}
+.event-bracket{
+    margin-bottom: 20px;
 }

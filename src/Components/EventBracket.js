@@ -1,5 +1,6 @@
 import React from 'react';
 import './EventBracket.css';
+import GroupStage from './tournament/Groups';
 function EventBracket(props) {
     /*
     *   Takes 1 prop called event with the following attributes:
@@ -15,9 +16,17 @@ function EventBracket(props) {
     *       ^ MUST BE IN "MM/DD/YYYY HH:MM" form
     */
 
+
+  const groups = true;
+  const bracket = false;
+
   return (
     <div className='eventbracket-container bold'>
-        EventBracket
+        <div className='bold'>Tournament Bracket:</div>
+
+        {groups && <GroupStage></GroupStage>}
+
+
     </div>
   )
 }

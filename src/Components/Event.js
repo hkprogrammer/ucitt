@@ -30,7 +30,7 @@ function Event(props) {
     
     // updates isRegistrationOpen according to if the registration date has passed.
     // When props of <Event /> are changed, this does not change, so the page must be reloaded
-    const closeDate = new Date(props.event.info.registration_close_adte);
+    const closeDate = new Date(props.event.info.registration_close_date);
     let now  = new Date();
     const [isRegistrationOpen, setIsRegistrationOpen] = useState(now < closeDate);
     const UpdateTime=()=>{
@@ -64,7 +64,7 @@ function Event(props) {
         // <a href={props.event.name} className='event-link'>
         <Link to='/event' state={props.event} className='event'>
             <div className='event-container'>
-                <div className='event-item'>{props.event.name}</div>
+                <div className='event-item bold'>{props.event.name}</div>
                 <div className={isMobile? 'event-unnecessary':'event-item'}>{props.event.info.time}, {props.event.info.date}</div>
                 <div className={isMobile? 'event-unnecessary':'event-item'}>{props.event.info.capacity}</div>
                 <div className={isMobile? 'event-unnecessary':'event-item'}>{props.event.info.location}</div>

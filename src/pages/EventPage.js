@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate} from "react-router-dom";
 import { useLocation} from 'react-router-dom'
 import './EventPage.css';
 import { isNull } from '../static/null';
@@ -8,10 +9,12 @@ import Sanctioned from '../Components/Sanctioned';
 import {Red, Green} from "../Components/Status";
 import TournamentRegister from '../Components/TournamenRegister';
 import EventBracket from '../Components/EventBracket';
-import HrLine from '../Components/HrLine';
+import HrLine from '../Components/HrLine'
+import Button from "react-bootstrap/Button";
 
 function EventPage() {
     const location = useLocation();
+    const navigation = useNavigate();
     const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
     var props = location.state;
 
@@ -51,11 +54,12 @@ function EventPage() {
     // console.log(props);
     return (
         <div className="event">
+            <Button variant="secondary" onClick={() => navigation(-1)}>Go back</Button>
             <div className='event-header'>Event: {data.name}</div>
             <HrLine/>
             {data.sanctioned && <Sanctioned></Sanctioned>}
 
-            <Lorem></Lorem>
+            {/* <Lorem></Lorem> */}
             <div>
                 <div className='descriptions'>
                     <div className='tournament-description'>
@@ -73,7 +77,7 @@ function EventPage() {
                             {Object.keys(data.info).map((key=>{
 
                                 return (
-                                    <li>{data.info[key]}</li>
+                                    <li>{key}: {data.info[key]}</li>
                                 )
 
 

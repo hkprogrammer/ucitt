@@ -6,6 +6,19 @@ function Events() {
     // props.events == array of event json
     const events = [
         {
+            name:"2024 UCITT JV Teams Open",
+            description: "This is an invitation based tournament hosted by UC Irvine Club Table Tennis for JV players. This will be a team tournamnet featuring WTTTC styled 3-player team format.",
+            info:{
+                time:"11:00 AM",
+                date:"12/25/2024",
+                capacity:"8/16",
+                location:"Activity Annex",
+                registration_close_date:"12/26/2024 16:48",
+            },
+            event_id:2,
+            sanctioned: true
+        },
+        {
             name:"Junior Varsity Tryouts",
             description: "Junior Varisty Tryouts for 2024 Winter NCTTA Divisional",
             info:{
@@ -13,7 +26,7 @@ function Events() {
                 date:"12/25/2024",
                 capacity:"8/16",
                 location:"Activity Annex",
-                registration_close_adte:"12/26/2024 16:48",
+                registration_close_date:"12/26/2024 16:48",
             },
             
             event_id: 1,
@@ -27,11 +40,11 @@ function Events() {
                 date:"12/25/2024",
                 capacity:"8/16",
                 location:"Activity Annex",
-                registration_close_adte:"12/26/2024 16:48",
+                registration_close_date:"12/26/2024 16:48",
             },
             event_id:2,
             sanctioned: true
-        }
+        },
       ];
 
     // checks to see if the screen is narrow enough for mobile version
