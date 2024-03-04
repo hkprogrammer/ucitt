@@ -1,0 +1,32 @@
+.events-header{
+    display:flex;
+    width: calc(var(--text-width) + 5em);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    
+}
+.events-header-item{
+    flex: 1;
+    font-size: min(1.3em, max(2.7vw, 0.9em));
+    text-align: center;
+}
+.events-horizontal-line{
+    width: calc(var(--text-width) + 5em);
+    margin-left: auto;
+    margin-right: auto;
+    height: 0.2em;
+    background-color: var(--yellow-line);
+    margin-bottom: 2em;
+}
+.events-unnecessary{
+    display: none;
+}
+.back-button{
+    margin: 1em;
+}
+.event{
+
+
+}

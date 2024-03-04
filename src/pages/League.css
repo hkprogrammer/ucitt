@@ -1,0 +1,51 @@
+.name{
+
+    font-size: medium;
+    display: block;
+
+    
+}
+
+.score{
+    font-size: large;
+    font-weight: bold;
+    display: block;
+
+}
+
+
+.form{
+  max-width:600px;
+  display: flex;
+  flex-direction: row;
+  padding:10px;
+}
+
+.league-container{
+  position: relative;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+.Alert{
+
+  width:75%;
+  min-width: 200px;
+  transform: translate(15%,0);
+  position: absolute;
+  top: -1px;
+  left:0px;
+  z-index: 10;
+  opacity: 0.9;
+
+}

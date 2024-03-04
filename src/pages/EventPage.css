@@ -1,0 +1,34 @@
+
+.bold{
+    font-weight: bold;
+}
+
+.event{
+    margin-left:auto;
+    margin-right:auto;
+}
+/* pc */
+@media screen and (min-width: 701px) {
+    .event{
+        width: 700px;
+    }
+    .horizontal-line{
+        width: 700px;
+    }
+}
+
+/* mobile */
+@media screen and (max-width: 700px) {
+    .event{
+        width:100%;
+    }
+    .horizontal-line{
+        width:100%;
+    }
+}   
+
+.event-header{
+    font-size:larger;
+    font-weight: bold;
+    margin:5px;
+}
