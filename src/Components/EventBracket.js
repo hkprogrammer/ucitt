@@ -17,18 +17,28 @@ function EventBracket(props) {
     */
 
 
-  const groups = true;
-  const bracket = false;
+    const groups = true;
+    const bracket = false;
+    const tournamentInfo = props.tournamentInfo;
 
-  return (
-    <div className='eventbracket-container bold'>
-        <div className='bold'>Tournament Bracket:</div>
+    return (
+        <div className='eventbracket-container bold'>
+            <div className='bold'>Tournament Bracket:</div>
+            {groups && 
+            
+                tournamentInfo.groups.map((element, index) => {
+                    return (
+                        <div className='group'>
+                            <GroupStage group={element} results={tournamentInfo.results} key={index}></GroupStage>
+                        </div>
+                    )
+                })
+            
+            }
 
-        {groups && <GroupStage></GroupStage>}
 
-
-    </div>
-  )
+        </div>
+    )
 }
 
 export default EventBracket

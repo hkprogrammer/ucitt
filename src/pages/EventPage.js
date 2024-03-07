@@ -25,6 +25,34 @@ function EventPage() {
         info : {
             template: 'template'
         },
+        groups:[
+            [
+                {
+                    
+                    name: "UCI A",
+                    seed: 1,
+                    key:1
+                },
+                {
+                    name: "UCI B",
+                    seed: 2,
+                    key:2
+                },
+                {
+                    name: "UCI C",
+                    seed: 3,
+                    key:3,
+    
+                },
+                {
+                    name: "UCI D",
+                    seed: 4,
+                    key:4
+                }, 
+    
+            ],
+               
+        ],
         sanctioned: true
     };
     var fields = {
@@ -37,6 +65,7 @@ function EventPage() {
         }
 
     }
+    
     try{
         /**
          * Main try catch block. Put all code here
@@ -95,7 +124,7 @@ function EventPage() {
                 
                 <div className='event-bracket'>
                         <HrLine></HrLine>
-                        <EventBracket></EventBracket>
+                        <EventBracket tournamentInfo={data}></EventBracket>
 
                 </div>
 

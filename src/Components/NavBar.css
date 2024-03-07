@@ -201,3 +201,8 @@
 .nav-form-button-close:hover {
     background-color: #c20a0a;
 }
+
+/* fix logo text align vertical */
+.logoText{
+    margin:auto;
+}

@@ -17,3 +17,9 @@
 .disbaled{
     background-color: darkgrey;
 }
+.tbody{
+    font-weight: normal;
+}
+.pos{
+    background-color: yellow;
+}

@@ -85,14 +85,11 @@ function NavBar() {
             <div className="nav-topnav">
                 <Link to="/" className="logo">
                     <img src={logo} alt="Table Tennis Petr Logo"/>
-                    <h1>UCI Table Tennis Club</h1>
+                    <h1 className="logoText">UCI Table Tennis Club</h1>
                 </Link>
 
                 {/* Default Navbar for desktop view */}
                 <nav className="nav-desktop nav-links">
-                    {/* <Link to="/events">Events</Link>
-                    <Link to="/ratings">Ratings</Link>
-                    <Link to="/sign-in">Sign In</Link> */}
                     {renderLinks()}
                     {/* <button className="nav-login-button" onClick={openCloseForm}>Login</button> */}
                 </nav>
@@ -107,9 +104,6 @@ function NavBar() {
 
             {/* Mobile dropdown menu that will come down upon clicking the dropdown button*/}
             <div className="nav-dropdown-menu nav-links">
-                {/* <Link to="/events">Events</Link>
-                <Link to="ratings">Ratings</Link>
-                <Link to="/sign-in">Sign In</Link> */}
                 {renderLinks()}
             </div>
 

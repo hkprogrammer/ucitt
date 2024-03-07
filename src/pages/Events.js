@@ -16,7 +16,117 @@ function Events() {
                 registration_close_date:"12/26/2024 16:48",
             },
             event_id:2,
-            sanctioned: true
+            sanctioned: true,
+            groups:[
+                [
+                    {
+                        
+                        name: "UCI A",
+                        seed: 1,
+                        key:1,
+                        team_id:1,
+                        wl: "3-0",
+                        pos: 1
+                    },
+                    {
+                        name: "UCI B",
+                        seed: 2,
+                        key:2,
+                        team_id:2,
+                        wl: "2-1",
+                        pos: 2
+                    },
+                    {
+                        name: "UCI C",
+                        seed: 3,
+                        key:3,
+                        team_id: 3,
+                        wl: "1-2",
+                        pos: 3
+        
+                    },
+                    {
+                        name: "UCI D",
+                        seed: 4,
+                        key: 4,
+                        team_id:4,
+                        wl: "0-3",
+                        pos: 4
+                    }, 
+        
+                ],   
+            ],
+            results:{
+                1: {
+                    2: {
+                        team_a: 3,
+                        team_b: 0,
+                        winner: 1
+                    },
+                    3: {
+                        team_a: 3,
+                        team_b: 0,
+                        winner: 1
+                    },
+                    4: {
+                        team_a: 3,
+                        team_b: 0,
+                        winner: 1
+                    }
+                },
+                2: {
+                    1: {
+                        team_a: 0,
+                        team_b: 3,
+                        winner: 1
+                    },
+                    3: {
+                        team_a: 3,
+                        team_b: 0,
+                        winner: 2
+                    },
+                    4: {
+                        team_a: 3,
+                        team_b: 0,
+                        winner: 2
+                    }
+                },
+                3: {
+                    1: {
+                        team_a: 0,
+                        team_b: 3,
+                        winner: 1
+                    },
+                    2: {
+                        team_a: 3,
+                        team_b: 0,
+                        winner: 2
+                    },
+                    4: {
+                        team_a: 3,
+                        team_b: 0,
+                        winner: 3
+                    }
+                },
+                4: {
+                    1: {
+                        team_a: 0,
+                        team_b: 3,
+                        winner: 1
+                    },
+                    2: {
+                        team_a: 3,
+                        team_b: 0,
+                        winner: 2
+                    },
+                    3: {
+                        team_a: 3,
+                        team_b: 0,
+                        winner: 3
+                    }
+                }
+            
+            }
         },
         {
             name:"Junior Varsity Tryouts",

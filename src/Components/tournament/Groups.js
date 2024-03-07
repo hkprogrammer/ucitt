@@ -1,5 +1,6 @@
 
 import "./Groups.css"
+import {isNull} from '../../static/null';
 const GroupStage = (props)=>{
 
     /**
@@ -7,39 +8,15 @@ const GroupStage = (props)=>{
      */
     // const data = props.tournamentInfo;
 
-
-    const data = {
-
-        participants:[
-            {
-                
-                name: "UCI A",
-                seed: 1,
-                key:1
-            },
-            {
-                name: "UCI B",
-                seed: 2,
-                key:2
-            },
-            {
-                name: "UCI C",
-                seed: 3,
-                key:3,
-
-            },
-            {
-                name: "UCI D",
-                seed: 4,
-                key:4
-            },   
-        ]
-
-    }
+    var group = props.group;
+    var results = props.results;
+    console.log({results});
     const numOfParticipants = 4;
     const playerTitle = "Player List";
 
+    
     return (
+
         <table className="groups-table">
             <thead>
                 <tr>
@@ -53,37 +30,49 @@ const GroupStage = (props)=>{
                         W/L
                     </th>
                     {
-                        data.participants.map((row)=>{
+                        group.map((row)=>{
                             return (
-                                <th key={row.key}>
+                                <th key={row.seed}>
                                     {row.name}
                                 </th>
                             )
                         })
-
                     }
                 </tr>
             </thead>
-            <tbody>
+            <tbody className="tbody">
                 {
-                    data.participants.map((row)=>{
+                    group.map((team_a)=>{
                         return (
 
-                            <tr key={row.key}>
-                                <td>
-                                    {row.name}
+                            <tr key={team_a.key}>
+                                <td className="bold">
+                                    {team_a.name}
+                                </td>
+                                <td className="pos">
+                                    {team_a.pos}
                                 </td>
                                 <td>
-
-                                </td>
-                                <td>
-
+                                    {team_a.wl}
                                 </td>
 
-                                {data.participants.map((innerRow)=>{
+                                {group.map((team_b)=>{
                                     return(
-                                        <td key={String(row.key) + String(innerRow.key)} className={row.name === innerRow.name ? 'disbaled' : ''}>
-    
+                                        <td key={String(team_a.key) + String(team_b.key)} className={team_a.name === team_b.name ? 'disbaled' : ''}>
+
+                                            {
+                                                team_a.team_id != team_b.team_id &&
+                                                !isNull(results[team_a.team_id]) &&
+                                                !isNull(results[team_a.team_id][team_b.team_id]) &&
+                                                <p>
+                                                    {
+                                                        String(results[team_a.team_id][team_b.team_id]["winner"] === team_a.team_id ? "W" : "L") + 
+                                                        String(results[team_a.team_id][team_b.team_id]["team_a"]) + "-" + 
+                                                        String(results[team_a.team_id][team_b.team_id]["team_b"]) 
+                                                        
+                                                    }                                     
+                                                </p>
+                                            }
                                         </td>
                                     )
                                 })}
