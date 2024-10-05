@@ -126,7 +126,8 @@ function Events() {
                     }
                 }
             
-            }
+            },
+            show:true
         },
         {
             name:"Junior Varsity Tryouts",
@@ -140,7 +141,8 @@ function Events() {
             },
             
             event_id: 1,
-            sanctioned: false
+            sanctioned: false,
+            show: false
         },
         {
             name:"Varsity Tryouts",
@@ -153,7 +155,8 @@ function Events() {
                 registration_close_date:"12/26/2024 16:48",
             },
             event_id:2,
-            sanctioned: true
+            sanctioned: true,
+            show:false
         },
       ];
 
@@ -177,9 +180,13 @@ function Events() {
             <div className='events-list'>
                 {
                     events.map((ttevent) => {
-                        return (
-                            <Event event={ttevent} className='event'/>
-                        )
+                        
+                        if(ttevent.show){
+                            return (
+                                <Event event={ttevent} className='event'/>
+                            )
+                        }
+                        
                     })
                 }
             </div>

@@ -304,7 +304,7 @@ function League() {
                             <td>{result.score_a}</td>
                             <td>{result.score_b}</td>
                             <td>{result.player_b}</td>
-                            <td><button onClick={deleteResults(result.match_id)}>del</button></td>
+                            <td><button class="btn btn-sm btn-secondary" onClick={deleteResults(result.match_id)}>del</button></td>
                             
                         </tr>
 

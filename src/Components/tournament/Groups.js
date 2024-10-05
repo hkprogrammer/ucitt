@@ -23,16 +23,16 @@ const GroupStage = (props)=>{
                     <th>
                         {playerTitle}
                     </th>
-                    <th>
+                    <th className="center">
                         Position
                     </th>
-                    <th>
+                    <th className="center">
                         W/L
                     </th>
                     {
                         group.map((row)=>{
                             return (
-                                <th key={row.seed}>
+                                <th key={row.seed} className="center">
                                     {row.name}
                                 </th>
                             )
@@ -49,16 +49,16 @@ const GroupStage = (props)=>{
                                 <td className="bold">
                                     {team_a.name}
                                 </td>
-                                <td className="pos">
+                                <td className="pos center">
                                     {team_a.pos}
                                 </td>
-                                <td>
+                                <td className="center">
                                     {team_a.wl}
                                 </td>
 
                                 {group.map((team_b)=>{
                                     return(
-                                        <td key={String(team_a.key) + String(team_b.key)} className={team_a.name === team_b.name ? 'disbaled' : ''}>
+                                        <td key={String(team_a.key) + String(team_b.key)} className={(team_a.name === team_b.name ? 'disbaled' : '') + " center scores"} >
 
                                             {
                                                 team_a.team_id != team_b.team_id &&

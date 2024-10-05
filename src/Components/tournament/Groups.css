@@ -10,8 +10,12 @@
 .groups-table td{
     border: 1px black solid;
     border-collapse: separate;
+    
 }
 
+.center{
+    text-align: center;
+}
 
 
 .disbaled{
@@ -22,4 +26,8 @@
 }
 .pos{
     background-color: yellow;
+    width: 20px;
+}
+.scores{
+    font-size: larger;
 }
